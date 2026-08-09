@@ -1,0 +1,1 @@
+A documentação passou a ser publicada no GitLab Pages, versionada pelo mike, em http://docs-param-manager-2714dc.pages.127.0.0.1.nip.io:8090. O job `pages` roda no branch padrão, grava a versão na `gh-pages`, empurra a branch para que as versões sobrevivam entre pipelines e extrai a árvore para o diretório que o Pages publica.

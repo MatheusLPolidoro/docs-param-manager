@@ -147,30 +147,41 @@ O pin correto é `10.21.3`, que corrige e ainda respeita o `~=10.2` exigido pelo
 
 ## Publicação
 
-Ainda não decidida. O `.gitlab-ci.yml` valida segurança, lint e build, e guarda
-`site/` como artefato, mas não publica. A intenção registrada é GitLab Pages,
-que publica por artefato de CI e não por branch — o fluxo do `mike` usado no
-`param-manager` não se traduz direto.
+O site é publicado no **GitLab Pages**, versionado pelo **mike**:
 
-### Não redeclare o `mike` antes de decidir isso
+**http://docs-param-manager-2714dc.pages.127.0.0.1.nip.io:8090**
 
-O repositório nasceu com `extra.version.provider: mike` copiado do
-`param-manager`. **Foi removido**, junto com o pacote, porque produzia um defeito
-sem entregar nada:
+O job `pages` roda **só no branch padrão** e costura duas ferramentas que não se
+encaixam sozinhas — o mike versiona empurrando para uma branch, o Pages publica
+`public/` de um artefato:
 
-- O `mike` só escreve o `versions.json` quando alguém roda `mike deploy`. Como
-  nada nunca foi publicado, o arquivo não existe.
-- O tema, vendo o provider declarado, buscava `versions.json` **em toda página,
-  nos dois idiomas** — e levava `404` toda vez.
-- O seletor de versão nem chegava a aparecer: sem o JSON, o Material não o
-  renderiza. `.md-version` ficava ausente do DOM.
+1. `mike deploy --branch gh-pages` grava a versão e o `versions.json`.
+2. `git push origin gh-pages` persiste, para as versões sobreviverem entre
+   pipelines.
+3. `git archive gh-pages | tar -x -C public` extrai a árvore para o que o Pages
+   publica.
 
-Ou seja: uma requisição falha por carregamento de página, em troca de nenhuma
-funcionalidade.
+### Requisitos que não são óbvios
 
-Para trazer versionamento de volta, primeiro decida como o site é publicado. Se
-for GitLab Pages, o `mike` provavelmente **não** é a ferramenta — ele versiona
-empurrando para uma branch, e o Pages publica por artefato de CI.
+| Item | Por quê |
+|---|---|
+| Variável `MIKE_TOKEN` | Token de projeto com `write_repository`. **O `CI_JOB_TOKEN` não empurra para o repositório** |
+| `GIT_DEPTH: '0'` no job | Push a partir de clone raso é recusado com *shallow update not allowed* |
+| Imagem `python:3.13` cheia | A `slim` não traz `git`, de que o mike e o push dependem |
+
+!!! danger "Variável protegida exige branch protegido"
+
+    `MIKE_TOKEN` está marcada como *Protected*, então **só é injetada em jobs de
+    branches protegidos**. O `main` precisa continuar protegido. Se a proteção
+    cair, o job **não falha** — ele entra no caminho degradado, publica sem
+    persistir a `gh-pages` e fica verde. O sintoma só aparece na versão
+    seguinte, quando a anterior some do seletor.
+
+    O sinal de que o token foi de fato usado é o `last_used_at` dele deixar de
+    ser `null`, em `Settings → Access Tokens`.
+
+O token expira em **2027-08-08**. Renove antes disso, ou a publicação passa a
+degradar em silêncio pelo mesmo caminho.
 
 ## Decisão registrada: assets herdados removidos
 
