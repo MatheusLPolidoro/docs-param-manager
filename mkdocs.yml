@@ -1,0 +1,75 @@
+site_name: Param Manager
+site_description: Documentação central do produto Param Manager — cliente, API e frontend.
+nav:
+  - Docs: index.md
+  - Alterações: changelog.md
+  - Estrutura: estrutura.md
+
+theme:
+  name: material
+  logo: assets/logo.svg
+  language: pt-BR
+  highlightjs: true
+  features:
+    - content.code.annotate
+    - content.tabs.link
+    - content.code.copy
+    - navigation.footer
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: teal
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+plugins:
+  - search:
+      separator: '[\s\-\.]+'
+  - towncrier
+  - gen-files:
+      scripts:
+        - docs/gen_tree.py
+
+extra:
+  version:
+    provider: mike
+
+extra_css:
+  - assets/css/extra.css
+  - assets/css/termynal.css
+
+extra_javascript:
+  - assets/js/filetree.js
+  - assets/js/termynal-init.js
+  - assets/js/termynal.js
+  - assets/js/LogoAnimation.js
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+  - pymdownx.blocks.caption
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format

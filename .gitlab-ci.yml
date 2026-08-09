@@ -1,0 +1,65 @@
+# Pipeline do docs-param-manager (documentação central do produto).
+#
+# O runner é docker, sem privileged e com concurrent = 1: os jobs rodam em
+# série, então a ordem dos estágios é também a ordem no relógio. Segurança
+# vem primeiro de propósito — não vale gastar o build num commit que vaza
+# segredo.
+#
+# Ainda NÃO há job de publicação. A intenção registrada é GitLab Pages, que
+# publica por artefato de CI e não por branch, então o fluxo do `mike` usado
+# no param-manager não se traduz direto — decidir antes de escrever o job.
+
+stages:
+  - seguranca
+  - qualidade
+
+variables:
+  PIP_DISABLE_PIP_VERSION_CHECK: '1'
+  PIP_NO_CACHE_DIR: '1'
+  # Clone raso serve para tudo, menos para a varredura de histórico.
+  GIT_DEPTH: '20'
+
+default:
+  interruptible: true
+
+# ---------------------------------------------------------------- segurança
+
+gitleaks:
+  stage: seguranca
+  image:
+    name: zricethezav/gitleaks:latest
+    # A imagem tem ENTRYPOINT ["gitleaks"]; sem zerar, o script viraria
+    # `gitleaks gitleaks detect ...`.
+    entrypoint: ['']
+  variables:
+    # Varredura do histórico inteiro: um segredo removido no commit
+    # seguinte continua publicado e precisa ser detectado.
+    GIT_DEPTH: '0'
+  script:
+    - gitleaks detect --source . --no-banner --redact --verbose
+
+# ---------------------------------------------------------------- qualidade
+
+ruff:
+  stage: qualidade
+  image: python:3.13-slim
+  script:
+    - pip install ruff==0.11.7
+    # `check` puro: o alvo `lint` do taskipy usa a mesma forma, mas em CI
+    # o que importa é reprovar, não mostrar o diff.
+    - ruff check .
+
+build:
+  stage: qualidade
+  image: python:3.13-slim
+  script:
+    - pip install --upgrade pip
+    - pip install -r requirements-dev.txt
+    # --strict transforma warning em erro: link quebrado, página fora do
+    # nav e referência a arquivo inexistente reprovam aqui, e não depois
+    # no site publicado.
+    - mkdocs build --strict
+  artifacts:
+    paths:
+      - site/
+    expire_in: 1 week

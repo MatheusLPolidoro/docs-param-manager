@@ -1,0 +1,16 @@
+# Site gerado pelo mkdocs
+site/
+
+# Ambiente virtual
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Ruído do editor e do sistema
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
