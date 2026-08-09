@@ -1,0 +1,1 @@
+O `task docs` passou a servir em `127.0.0.1:8010`. O default do mkdocs é a 8000, que neste ambiente já está ocupada, e a colisão aparecia no Windows como `PermissionError: [WinError 10013]` — mensagem de permissão negada que não menciona porta e manda investigar firewall à toa.

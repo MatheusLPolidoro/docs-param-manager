@@ -1,0 +1,157 @@
+/*
+ * Acessibilidade.
+ *
+ * O que está aqui não é enfeite: cada bloco corresponde a um critério da
+ * WCAG 2.1 AA que o tema sozinho não garante, ou que a customização
+ * deste site poderia ter quebrado. O critério está citado no comentário
+ * para que uma mudança futura saiba o que está desfazendo.
+ */
+
+/* -------------------------------------------------------------------
+ * 2.4.7 Foco visível / 1.4.11 Contraste de elementos não textuais
+ *
+ * O anel de foco do tema some em cima dos fundos coloridos dos cartões
+ * e da barra de ações. Este anel tem duas camadas para sobreviver tanto
+ * no claro quanto no escuro, e usa :focus-visible para não aparecer em
+ * clique de mouse.
+ * ------------------------------------------------------------------- */
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--pm-roxo, #5e35b1);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+[data-md-color-scheme="slate"]
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline-color: #d1c4e9;
+}
+
+/* -------------------------------------------------------------------
+ * 2.4.1 Ignorar blocos
+ *
+ * O Material já emite um link "pular para o conteúdo"; ele só precisa
+ * ficar visível quando recebe foco, e acima de tudo.
+ * ------------------------------------------------------------------- */
+
+.md-skip:focus {
+  z-index: 100;
+  outline: 3px solid var(--pm-roxo, #5e35b1);
+  outline-offset: 2px;
+}
+
+/* -------------------------------------------------------------------
+ * 2.3.3 Animação por interação / 2.2.2 Pausar, parar, ocultar
+ *
+ * Nada aqui se move por conta própria: a marca do herói é um SVG
+ * estático. O que resta são transições de hover e foco, que somem para
+ * quem pediu menos movimento ao sistema operacional.
+ * ------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* -------------------------------------------------------------------
+ * 1.4.4 Redimensionar texto / 1.4.10 Refluxo
+ *
+ * Tabelas de referência são largas por natureza. Rolagem horizontal no
+ * container, nunca na página, e com foco para chegar por teclado.
+ * ------------------------------------------------------------------- */
+
+.md-typeset__table,
+.md-typeset .md-typeset__scrollwrap {
+  overflow-x: auto;
+}
+
+.md-typeset__table:focus-visible {
+  outline: 3px solid var(--pm-roxo, #5e35b1);
+}
+
+/* -------------------------------------------------------------------
+ * 1.4.3 Contraste mínimo
+ *
+ * O cinza padrão de legenda e de código embutido fica abaixo de 4.5:1
+ * no tema claro sobre o fundo suave dos cartões.
+ * ------------------------------------------------------------------- */
+
+.md-typeset figcaption,
+.md-typeset .pm-cartao__desc {
+  color: #4a4a52;
+}
+
+[data-md-color-scheme="slate"] .md-typeset figcaption,
+[data-md-color-scheme="slate"] .md-typeset .pm-cartao__desc {
+  color: #d0d0d8;
+}
+
+/* -------------------------------------------------------------------
+ * Impressão — é isto que produz o PDF
+ *
+ * O botão "Salvar em PDF" chama window.print(). Tudo que é navegação
+ * some; o que sobra é o conteúdo, em cores de alto contraste, com os
+ * destinos dos links revelados (um PDF não tem hover).
+ * ------------------------------------------------------------------- */
+
+@media print {
+  .md-header,
+  .md-sidebar,
+  .md-footer,
+  .md-nav,
+  .md-search,
+  .md-top,
+  .doc-actions,
+  .md-content__button {
+    display: none !important;
+  }
+
+  .md-main__inner,
+  .md-content,
+  .md-grid {
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .md-typeset {
+    font-size: 11pt;
+    color: #000;
+  }
+
+  .md-typeset a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  /* O destino do link some no papel; revelá-lo mantém a página útil
+     impressa. Só para links externos — âncoras internas viram ruído. */
+  .md-typeset a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    word-break: break-all;
+  }
+
+  .md-typeset pre,
+  .md-typeset table,
+  .md-typeset blockquote,
+  .pm-cartao {
+    break-inside: avoid;
+    border: 1px solid #999;
+  }
+
+  .md-typeset h1,
+  .md-typeset h2,
+  .md-typeset h3 {
+    break-after: avoid;
+  }
+
+  .pm-heroi {
+    border-bottom: 1px solid #999;
+  }
+}

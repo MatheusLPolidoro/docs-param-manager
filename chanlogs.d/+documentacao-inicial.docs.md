@@ -1,0 +1,1 @@
+A documentação do produto ganhou 21 páginas cobrindo a API e o cliente em detalhe — arquitetura, endpoints, tipos de parâmetro, autenticação, cache, modo offline, empacotamento e o envelope criptográfico — cada uma em português e inglês, com botão para baixar a página em `.md` ou salvar em PDF.
