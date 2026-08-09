@@ -1,0 +1,170 @@
+/*
+ * Marca do Param Manager.
+ *
+ * A paleta base vem do tema (deep purple / indigo no claro, teal no
+ * escuro). Aqui ficam só os elementos próprios: o herói da página
+ * inicial, a barra de ações e os cartões de navegação.
+ */
+
+:root {
+  --pm-roxo: #5e35b1;
+  --pm-roxo-claro: #7e57c2;
+  --pm-borda: rgba(94, 53, 177, 0.28);
+  --pm-fundo-suave: rgba(94, 53, 177, 0.06);
+}
+
+[data-md-color-scheme="slate"] {
+  --pm-roxo: #b39ddb;
+  --pm-roxo-claro: #d1c4e9;
+  --pm-borda: rgba(179, 157, 219, 0.32);
+  --pm-fundo-suave: rgba(179, 157, 219, 0.08);
+}
+
+/* ------------------------------------------------------------ herói */
+
+.pm-heroi {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem 0 2rem;
+  border-bottom: 1px solid var(--pm-borda);
+  margin-bottom: 2rem;
+}
+
+/* A placa roxa está dentro do próprio SVG (assets/favicon.svg): o
+   logo.svg é branco sobre transparente e sumiria no tema claro. */
+.pm-heroi__marca {
+  flex: 0 0 auto;
+  width: 132px;
+  height: 132px;
+}
+
+.pm-heroi__marca img {
+  width: 132px;
+  height: 132px;
+  display: block;
+}
+
+.pm-heroi__texto {
+  flex: 1 1 18rem;
+  min-width: 0;
+}
+
+.pm-heroi__texto h1,
+.pm-heroi__texto > :first-child {
+  margin-top: 0;
+}
+
+.pm-heroi__slogan {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin: 0.4rem 0 0;
+}
+
+/* --------------------------------------------------------- cartões */
+
+/* Seletor casado com `.md-typeset` de propósito: o Material estiliza
+   `ul` e `li` dentro do conteúdo com marcador e recuo próprios, e uma
+   regra de classe só perde para ele. Sem isto os cartões saem como uma
+   lista com bolinha, empilhados, sem grid. */
+.md-typeset ul.pm-cartoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.md-typeset ul.pm-cartoes > li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.md-typeset ul.pm-cartoes > li::marker {
+  content: none;
+}
+
+.md-typeset ul.pm-cartoes > li::before {
+  display: none;
+  content: none;
+}
+
+.pm-cartao {
+  display: block;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--pm-borda);
+  border-radius: 12px;
+  background: var(--pm-fundo-suave);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.pm-cartao:hover,
+.pm-cartao:focus-visible {
+  border-color: var(--pm-roxo);
+  transform: translateY(-2px);
+}
+
+.pm-cartao__titulo {
+  display: block;
+  font-weight: 700;
+  color: var(--pm-roxo);
+  margin-bottom: 0.35rem;
+}
+
+.pm-cartao__desc {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+/* ------------------------------------------------- barra de ações */
+
+.doc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin: 0 0 0.5rem;
+  padding: 0.75rem 0.8rem 0;
+}
+
+.doc-actions__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  /* 44px de alvo mínimo: recomendação de alvo de toque da WCAG 2.5.5. */
+  min-height: 44px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--pm-roxo);
+  background: transparent;
+  border: 1px solid var(--pm-borda);
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.doc-actions__btn:hover {
+  background: var(--pm-fundo-suave);
+  border-color: var(--pm-roxo);
+}
+
+.doc-actions__icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+}
+
+@media screen and (max-width: 44.9em) {
+  .doc-actions {
+    justify-content: flex-start;
+  }
+}

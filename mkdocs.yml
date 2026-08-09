@@ -1,68 +1,166 @@
 site_name: Param Manager
-site_description: Documentação central do produto Param Manager — cliente, API e frontend.
-nav:
-  - Docs: index.md
-  - Alterações: changelog.md
-  - Estrutura: estrutura.md
+site_description: Documentação central do produto Param Manager — API, cliente e contrato entre eles.
+site_author: MatheusLPolidoro
+
+# Cada página tem um botão "baixar .md" que aponta para o próprio fonte
+# copiado ao lado do HTML pelo hook de downloads. Isso só funciona com
+# URLs de diretório, que já é o padrão — explícito porque quebrar aqui
+# quebra o download sem quebrar o build.
+use_directory_urls: true
 
 theme:
   name: material
+  custom_dir: overrides
   logo: assets/logo.svg
+  favicon: assets/favicon.svg
   language: pt-BR
-  highlightjs: true
   features:
     - content.code.annotate
-    - content.tabs.link
     - content.code.copy
+    - content.tabs.link
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
     - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.highlight
   palette:
-    # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: deep purple
       accent: indigo
       toggle:
         icon: material/brightness-7
-        name: Switch to dark mode
-
-    # Palette toggle for dark mode
+        name: Mudar para o tema escuro
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: deep purple
       accent: teal
       toggle:
         icon: material/brightness-4
-        name: Switch to light mode
+        name: Mudar para o tema claro
+
+nav:
+  - Início: index.md
+  - Produto:
+      - Visão geral: produto/visao-geral.md
+      - Arquitetura: produto/arquitetura.md
+      - Compatibilidade: produto/compatibilidade.md
+      - Glossário: produto/glossario.md
+  - API:
+      - Visão geral da API: api/index.md
+      - Instalação e execução: api/instalacao.md
+      - Configuração: api/configuracao.md
+      - Autenticação e autorização: api/autenticacao.md
+      - Endpoints: api/endpoints.md
+      - Tipos de parâmetro: api/tipos-de-parametro.md
+      - Observabilidade: api/observabilidade.md
+  - Cliente:
+      - Visão geral do cliente: cliente/index.md
+      - Instalação: cliente/instalacao.md
+      - Configuração: cliente/configuracao.md
+      - Uso: cliente/uso.md
+      - Cache e modo offline: cliente/cache-e-offline.md
+      - Empacotamento: cliente/empacotamento.md
+  - Segurança:
+      - Envelope criptográfico: seguranca/envelope.md
+  - Acessibilidade: acessibilidade.md
+  - Alterações: changelog.md
+
+# Âncora quebrada é o defeito mais fácil de introduzir numa documentação
+# com referência cruzada em dois idiomas, e o mais fácil de não notar: o
+# link continua clicável e só não leva a lugar nenhum. Com --strict isto
+# reprova o build.
+validation:
+  links:
+    anchors: warn
+    absolute_links: warn
+    unrecognized_links: warn
 
 plugins:
   - search:
       separator: '[\s\-\.]+'
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      reconfigure_material: true
+      reconfigure_search: true
+      languages:
+        - locale: pt
+          name: Português (Brasil)
+          default: true
+          build: true
+          site_name: Param Manager
+        - locale: en
+          name: English
+          build: true
+          site_name: Param Manager
+          site_description: Central documentation for the Param Manager product — API, client and the contract between them.
+          theme:
+            language: en
+          nav_translations:
+            Início: Home
+            Produto: Product
+            Visão geral: Overview
+            Arquitetura: Architecture
+            Compatibilidade: Compatibility
+            Glossário: Glossary
+            Visão geral da API: API overview
+            Instalação e execução: Install and run
+            Configuração: Configuration
+            Autenticação e autorização: Authentication and authorization
+            Tipos de parâmetro: Parameter types
+            Observabilidade: Observability
+            Cliente: Client
+            Visão geral do cliente: Client overview
+            Instalação: Installation
+            Uso: Usage
+            Cache e modo offline: Cache and offline mode
+            Empacotamento: Packaging
+            Segurança: Security
+            Envelope criptográfico: Cryptographic envelope
+            Acessibilidade: Accessibility
+            Alterações: Changelog
   - towncrier
-  - gen-files:
-      scripts:
-        - docs/gen_tree.py
 
+hooks:
+  - hooks/downloads.py
+
+# O seletor de versão só funciona porque o job `pages` do CI roda
+# `mike deploy`, que escreve o versions.json na branch gh-pages. Sem esse
+# job, o tema busca o arquivo e leva 404 em toda página — foi o que
+# aconteceu enquanto o provider estava declarado sem ninguém publicar.
 extra:
   version:
     provider: mike
 
 extra_css:
-  - assets/css/extra.css
-  - assets/css/termynal.css
+  - assets/css/marca.css
+  - assets/css/a11y.css
 
 extra_javascript:
-  - assets/js/filetree.js
-  - assets/js/termynal-init.js
-  - assets/js/termynal.js
-  - assets/js/LogoAnimation.js
+  - assets/js/doc-actions.js
 
 markdown_extensions:
-  - pymdownx.highlight
-  - pymdownx.snippets
+  - abbr
+  - admonition
   - attr_list
-  - md_in_html
-  - pymdownx.blocks.caption
   - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      permalink_title: Link permanente para esta seção
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.blocks.caption
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.emoji:

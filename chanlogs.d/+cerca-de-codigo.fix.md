@@ -1,0 +1,1 @@
+Blocos de código voltaram a ser renderizados. O par `Markdown 3.8` com `pymdown-extensions 10.15`, herdado do site do `param-manager`, fazia toda cerca genérica sair como parágrafo literal com as crases à mostra — enquanto as cercas declaradas como `custom_fences`, entre elas o `mermaid`, continuavam funcionando e o build seguia verde.

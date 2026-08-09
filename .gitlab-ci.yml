@@ -5,13 +5,17 @@
 # vem primeiro de propósito — não vale gastar o build num commit que vaza
 # segredo.
 #
-# Ainda NÃO há job de publicação. A intenção registrada é GitLab Pages, que
-# publica por artefato de CI e não por branch, então o fluxo do `mike` usado
-# no param-manager não se traduz direto — decidir antes de escrever o job.
+# A publicação é GitLab Pages alimentado por `mike`. Os dois modelos não se
+# encaixam sozinhos: o `mike` versiona empurrando para uma branch, e o Pages
+# publica o diretório `public/` de um artefato. O job `pages` costura os dois —
+# roda o `mike deploy` na branch `gh-pages`, empurra para que as versões
+# sobrevivam entre pipelines, e só então extrai a árvore daquela branch para
+# `public/`.
 
 stages:
   - seguranca
   - qualidade
+  - publicar
 
 variables:
   PIP_DISABLE_PIP_VERSION_CHECK: '1'
@@ -62,4 +66,58 @@ build:
   artifacts:
     paths:
       - site/
+    expire_in: 1 week
+
+# ---------------------------------------------------------------- publicação
+
+pages:
+  stage: publicar
+  # Imagem cheia, e não a slim: esta traz `git`, de que o mike e o push
+  # dependem. Instalar por apt na slim funcionaria, mas põe a rede do
+  # runner no caminho crítico de toda publicação.
+  image: python:3.13
+  # Só o branch padrão publica. Um site publicado a partir de `desenv`
+  # mostraria ao leitor documentação que ainda não foi promovida.
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  variables:
+    # Clone completo: `git push` a partir de clone raso é recusado com
+    # "shallow update not allowed", e o mike precisa do histórico da
+    # gh-pages para acumular versões em vez de sobrescrever.
+    GIT_DEPTH: '0'
+  script:
+    - pip install -r requirements-dev.txt
+    - git config user.email "ci@docs-param-manager.local"
+    - git config user.name "CI do docs-param-manager"
+    # MIKE_TOKEN é um token de projeto com write_repository. O CI_JOB_TOKEN
+    # NÃO serve: ele não empurra para o repositório.
+    #
+    # Sem o token o job ainda publica — o que se perde é a acumulação: cada
+    # pipeline recomeça a gh-pages do zero e o versions.json fica com a
+    # versão corrente apenas. Isso é inofensivo enquanto existir uma versão
+    # só, e passa a apagar histórico assim que existir a segunda.
+    - |
+      if [ -n "$MIKE_TOKEN" ]; then
+        git remote set-url origin "http://gitlab-ci-token:${MIKE_TOKEN}@gitlab.127.0.0.1.nip.io/${CI_PROJECT_PATH}.git"
+        git fetch origin gh-pages:gh-pages || echo "gh-pages ainda nao existe"
+      else
+        echo "AVISO: MIKE_TOKEN ausente. Publicando sem persistir a gh-pages;"
+        echo "AVISO: versoes anteriores nao serao preservadas."
+      fi
+    - VERSAO=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+    - echo "publicando versao $VERSAO"
+    - mike deploy --branch gh-pages --update-aliases "$VERSAO" latest
+    - mike set-default --branch gh-pages latest
+    - |
+      if [ -n "$MIKE_TOKEN" ]; then
+        git push origin gh-pages
+      fi
+    # O Pages publica o conteúdo de `public/`, e não a branch. Daí extrair a
+    # árvore da gh-pages — que já contém as versões e o versions.json.
+    - rm -rf public && mkdir public
+    - git archive gh-pages | tar -x -C public
+    - echo "conteudo publicado:" && ls public
+  artifacts:
+    paths:
+      - public
     expire_in: 1 week

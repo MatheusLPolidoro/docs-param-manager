@@ -1,0 +1,63 @@
+# Param Manager
+
+<div class="pm-heroi" markdown>
+<div class="pm-heroi__marca" markdown>
+<!-- Markdown syntax rather than <img>: mkdocs rewrites relative image
+     paths in Markdown per page, and the English build lives under /en/.
+     A hard-coded HTML src would point at /en/assets/, which does not
+     exist — assets live only at the site root. -->
+![Param Manager mark: a graph of connected nodes](assets/favicon.svg)
+</div>
+<div class="pm-heroi__texto" markdown>
+
+## Centralized parameters, encrypted secrets, and reads that don't go down
+
+Param Manager takes configuration out of the `.env` file on every machine and
+puts it in one versioned, auditable place — without making your application
+depend on the network being up at the moment it reads.
+
+</div>
+</div>
+
+The product is **two artifacts shipped separately** and a contract between them:
+
+<ul class="pm-cartoes">
+<li><a class="pm-cartao" href="api/">
+  <span class="pm-cartao__titulo">fast-param-manager — the API</span>
+  <span class="pm-cartao__desc">A FastAPI server on MongoDB, authenticated through Keycloak. It stores parameters, validates each one's type, encrypts the sensitive ones and decides who may write what.</span>
+</a></li>
+<li><a class="pm-cartao" href="cliente/">
+  <span class="pm-cartao__titulo">param-manager — the client</span>
+  <span class="pm-cartao__desc">A Python library published on PyPI. It reads parameters, keeps an in-memory cache, decrypts secrets and keeps answering from local data when the API does not respond.</span>
+</a></li>
+<li><a class="pm-cartao" href="seguranca/envelope/">
+  <span class="pm-cartao__titulo">The cryptographic envelope</span>
+  <span class="pm-cartao__desc">The format a secret is stored in. It is a frozen contract: both sides implement the same thing, in repositories released on different dates.</span>
+</a></li>
+</ul>
+
+## Where to start
+
+| If you want to… | Go to |
+|---|---|
+| Understand the product before the code | [Overview](produto/visao-geral.md) |
+| See how a request crosses the system | [Architecture](produto/arquitetura.md) |
+| Run the API on your machine | [Install and run](api/instalacao.md) |
+| Consume parameters from a Python application | [Client usage](cliente/uso.md) |
+| Know what can break whoever is already in production | [Compatibility](produto/compatibilidade.md) |
+| Store a password or credential in a parameter | [Cryptographic envelope](seguranca/envelope.md) |
+
+## What this documentation assumes
+
+That you will read the code when the answer really matters. Every page here was
+written against the implementation, and where the behaviour is surprising that
+is stated on the page rather than hidden. When this site and the code disagree,
+**the code is right** — and the page has a defect, which is worth reporting.
+
+!!! note "Every page can be taken with you"
+
+    The **Download .md** button hands you the original Markdown file, exactly as
+    it sits in the repository. **Save as PDF** opens the browser print dialog
+    with a stylesheet that strips the navigation — what comes out is the content
+    alone. Both sit at the top of every page, and the whole documentation exists
+    in Portuguese and English.

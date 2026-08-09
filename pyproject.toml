@@ -24,7 +24,12 @@ quote-style = 'single'
 fix = "ruff check . --fix"
 lint = "ruff check ."
 format = "ruff format ."
-docs = "mkdocs serve"
+# Porta explícita: o default do mkdocs é 8000, que neste ambiente está
+# ocupada pelo servidor MCP do Serena. No Windows a colisão não aparece
+# como "porta em uso" (10048) e sim como PermissionError [WinError 10013],
+# que parece problema de permissão e manda quem lê investigar firewall à
+# toa. 8010 está fora do mapa de portas do produto — ver README.
+docs = "mkdocs serve -a 127.0.0.1:8010"
 build = "mkdocs build --strict"
 
 [tool.towncrier]

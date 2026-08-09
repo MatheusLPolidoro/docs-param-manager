@@ -1,0 +1,1 @@
+As seções de API e Cliente ganharam fluxogramas: o caminho de uma requisição pelas camadas do servidor, e a cadeia que resolve um `get_param` entre cache, circuit breaker, rede e fallback local. A página de Arquitetura passou a trazer um diagrama de contexto do produto inteiro, sem repetir os dois detalhados.

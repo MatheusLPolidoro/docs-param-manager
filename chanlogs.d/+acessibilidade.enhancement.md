@@ -1,0 +1,1 @@
+O site passou a mirar WCAG 2.1 AA: foco visível por `:focus-visible`, respeito a `prefers-reduced-motion`, alvos de toque de 44 px, tabelas que rolam sem levar a página junto e folha de impressão que revela o destino dos links. A página Acessibilidade declara o que está implementado e o que ainda não foi verificado.

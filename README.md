@@ -1,26 +1,58 @@
 # docs-param-manager
 
-Documentação central do produto **Param Manager**, cobrindo os três subprojetos
-do workspace: a biblioteca cliente `param-manager`, a API `fast-param-manager` e
-o frontend `front-param-manager`.
+Documentação central do produto **Param Manager**, cobrindo os subprojetos do
+workspace: a biblioteca cliente `param-manager`, a API `fast-param-manager` e o
+frontend `front-param-manager` (ainda vazio).
 
 Cada subprojeto continua com o seu próprio `README.md` e o seu próprio
 changelog. Este repositório é o lugar da documentação que atravessa os três —
 o que só faz sentido lendo produto inteiro, não um artefato de cada vez.
 
-> **Estado atual: ambiente montado, documentação ainda não escrita.**
-> O `nav` tem apenas a página inicial, o changelog e a estrutura.
+## Conteúdo
+
+21 páginas, cada uma em **português e inglês**:
+
+| Seção | Páginas |
+|---|---|
+| Produto | visão geral, arquitetura, compatibilidade, glossário |
+| API | visão geral, instalação, configuração, autenticação, endpoints, tipos de parâmetro, observabilidade |
+| Cliente | visão geral, instalação, configuração, uso, cache e offline, empacotamento |
+| Segurança | envelope criptográfico |
+| Outros | início, acessibilidade, changelog |
+
+O conteúdo foi escrito **conferindo o código**, não a documentação existente
+dos subprojetos — que diverge da implementação em vários pontos conhecidos. Onde
+os dois discordam, as páginas daqui dizem qual é o comportamento real.
 
 ## Stack
 
-A mesma do site do `param-manager`, deliberadamente:
-
-- **mkdocs** + **mkdocs-material**, `language: pt-BR`, paleta `deep purple`
+- **mkdocs** + **mkdocs-material**, paleta `deep purple`
+- **mkdocs-static-i18n** com estrutura por sufixo: `pagina.md` é português,
+  `pagina.en.md` é inglês. O português é o idioma padrão e fica na raiz; o
+  inglês fica em `/en/`
 - **mkdocs-towncrier** para o rascunho do changelog
-- **mkdocs-gen-files** + `docs/gen_tree.py` para a página *Estrutura*
-- **mike** declarado como provider de versão
-- Marca e assets vindos do cliente: `logo.svg`, `extra.css`, `termynal`,
-  `LogoAnimation.js` e o conjunto de ícones em `assets/svgs/`
+- Marca própria: `assets/logo.svg` no cabeçalho e `assets/favicon.svg` — o mesmo
+  grafo de nós, sobre placa roxa, para funcionar em fundo claro e na aba do
+  navegador
+- **Sem seletor de versão** — ver a seção Publicação
+
+### Recursos próprios deste site
+
+**Download da página em `.md`**
+:   `hooks/downloads.py` grava o fonte Markdown ao lado do HTML de cada página,
+    em cada idioma. O botão vem de `overrides/main.html`. É cópia byte a byte do
+    repositório — nenhum plugin de export no meio.
+
+**Salvar em PDF**
+:   Botão que chama `window.print()`. O PDF é gerado pelo navegador; a folha
+    `@media print` em `assets/css/a11y.css` remove navegação e controles. **Não
+    há geração de PDF no build** — isso exigiria um navegador headless dentro do
+    runner de CI, que hoje não tem.
+
+**Acessibilidade**
+:   `assets/css/a11y.css`, com cada bloco citando o critério WCAG que atende. A
+    página `docs/acessibilidade.md` declara o que está implementado e, mais
+    importante, **o que ainda não foi verificado**.
 
 ## Ambiente
 
@@ -35,20 +67,74 @@ O PowerShell 5.1 não tem `&&`; encadeie com `cmd1; if ($?) { cmd2 }`.
 ## Comandos
 
 ```
-task docs     # mkdocs serve
+task docs     # mkdocs serve em http://127.0.0.1:8010
 task build    # mkdocs build --strict
 task lint     # ruff check .
 task format   # ruff format .
 task fix      # ruff check . --fix
 ```
 
-`--strict` é o que vale: ele transforma warning em erro, então link quebrado e
-página fora do `nav` reprovam no build, e não depois no site publicado.
+### Por que a porta é 8010
+
+O default do mkdocs é **8000**, que já está tomada neste ambiente — é onde o
+servidor MCP do Serena escuta. E o mapa de portas do produto ocupa quase todo o
+resto: 8001 é o `task run` da API, 8080 o nginx, 8081 o Keycloak, 8082 o Mongo
+Express, 8090 o GitLab.
+
+!!! danger "O erro não diz que a porta está ocupada"
+
+    No Windows, disputar uma porta cujo socket foi aberto em modo exclusivo
+    devolve `PermissionError: [WinError 10013]` — "acesso proibido pelas
+    permissões" — e **não** o `10048` de porta em uso. A mensagem manda quem lê
+    investigar firewall e antivírus, que não têm nada a ver.
+
+    Quando acontecer, confira quem está na porta antes de qualquer outra coisa:
+
+    ```powershell
+    Get-NetTCPConnection -LocalPort 8010 | Select-Object State,OwningProcess
+    Get-CimInstance Win32_Process -Filter "ProcessId = <pid>" | Select-Object CommandLine
+    ```
+
+    Vale conferir também `netsh interface ipv4 show excludedportrange protocol=tcp`:
+    o Hyper-V reserva faixas inteiras, e uma porta dentro delas dá o mesmo
+    `10013` sem ninguém estar escutando.
+
+`--strict` é o que vale. Além dos avisos normais do mkdocs, o `mkdocs.yml`
+liga a validação de **âncoras**, então um link para uma seção que não existe
+reprova o build em vez de virar um clique que não leva a lugar nenhum.
 
 **Ative a venv antes de buildar.** O `mkdocs-towncrier` chama o executável
 `towncrier` por subprocesso, então ele precisa do `.venv\Scripts` no `PATH`.
 Rodar `python -m mkdocs build` com a venv desativada quebra com um
 `FileNotFoundError [WinError 2]` que não menciona o towncrier em lugar nenhum.
+
+## Armadilha de dependência já paga
+
+**Não volte `pymdown-extensions` para `10.15`.** Esse pin, herdado do
+`requirements-dev.txt` do `param-manager`, é incompatível com `Markdown 3.8` e
+faz **toda cerca de código genérica** — ` ```python `, ` ```bash ` — sair como
+parágrafo literal, com as crases à mostra.
+
+O sintoma engana por dois motivos: as cercas declaradas em `custom_fences`
+continuam funcionando, então o `mermaid` renderiza normal e parece que o
+`superfences` está de pé; e o build fica **verde**, inclusive com `--strict`.
+Só se percebe olhando a página.
+
+O pin correto é `10.21.3`, que corrige e ainda respeita o `~=10.2` exigido pelo
+`mkdocs-material` 9.6.12 — a linha 11.x viola esse pin.
+
+## Escrevendo
+
+- Página nova precisa das **duas** versões: `pagina.md` e `pagina.en.md`. Sem a
+  segunda o build não quebra — o `fallback_to_default` serve a versão em
+  português no site em inglês, em silêncio.
+- Entrada nova no `nav` precisa da tradução correspondente em
+  `nav_translations`, no bloco do locale `en`.
+- Âncora de link interno usa o slug do **título traduzido**. Nomes de variável
+  mantêm underscore: `#read_auth_mode`, não `#read-auth-mode`.
+- Toda imagem precisa de `alt`, e imagem em bloco HTML precisa de sintaxe
+  Markdown com `markdown` no `div` — senão o caminho não é reescrito e a imagem
+  quebra no build em inglês, que fica um nível abaixo.
 
 ## Convenções
 
@@ -56,15 +142,66 @@ Rodar `python -m mkdocs build` com a venv desativada quebra com um
 - O `TIPO` vem do vocabulário towncrier **deste** repositório, declarado no
   `pyproject.toml`. É o mesmo do `param-manager` (`fix`, `docs`, `infra`,
   `chore`, ...) e **não** o do `fast-param-manager`, que é outro.
-- Mudança visível ao leitor precisa de um fragmento em `chanlogs.d/` antes de a
-  tarefa ser considerada pronta.
+- Mudança visível ao leitor precisa de um fragmento em `chanlogs.d/`.
 - `CHANGELOG.md` é gerado pelo towncrier — nunca editar à mão.
-- `docs/estrutura.md` é gerado no build por `docs/gen_tree.py`; não existe no
-  repositório e não deve ser criado.
 
 ## Publicação
 
-Ainda não decidida. O `.gitlab-ci.yml` valida o build e guarda `site/` como
-artefato, mas não publica. A intenção registrada é GitLab Pages, que publica
-por artefato de CI e não por branch — o fluxo do `mike` usado no `param-manager`
-não se traduz direto.
+Ainda não decidida. O `.gitlab-ci.yml` valida segurança, lint e build, e guarda
+`site/` como artefato, mas não publica. A intenção registrada é GitLab Pages,
+que publica por artefato de CI e não por branch — o fluxo do `mike` usado no
+`param-manager` não se traduz direto.
+
+### Não redeclare o `mike` antes de decidir isso
+
+O repositório nasceu com `extra.version.provider: mike` copiado do
+`param-manager`. **Foi removido**, junto com o pacote, porque produzia um defeito
+sem entregar nada:
+
+- O `mike` só escreve o `versions.json` quando alguém roda `mike deploy`. Como
+  nada nunca foi publicado, o arquivo não existe.
+- O tema, vendo o provider declarado, buscava `versions.json` **em toda página,
+  nos dois idiomas** — e levava `404` toda vez.
+- O seletor de versão nem chegava a aparecer: sem o JSON, o Material não o
+  renderiza. `.md-version` ficava ausente do DOM.
+
+Ou seja: uma requisição falha por carregamento de página, em troca de nenhuma
+funcionalidade.
+
+Para trazer versionamento de volta, primeiro decida como o site é publicado. Se
+for GitLab Pages, o `mike` provavelmente **não** é a ferramenta — ele versiona
+empurrando para uma branch, e o Pages publica por artefato de CI.
+
+## Decisão registrada: assets herdados removidos
+
+O repositório nasceu clonando a marca e os assets do site do `param-manager`.
+Depois que a documentação foi escrita, **nada disso estava mais em uso** e a
+maior parte estava quebrada. Tudo saiu:
+
+| Removido | Por quê |
+|---|---|
+| `assets/js/LogoAnimation.js` — **17 MB** | Órfão: a página inicial passou a usar a marca estática, e nenhum `.md` referenciava mais o script |
+| `assets/js/termynal.js`, `termynal-init.js`, `assets/css/termynal.css` | Nenhuma página usa `.termynal` |
+| `assets/css/extra.css` | As cinco classes que sobraram — `.copy-btn` e quatro de cor — não são usadas em lugar nenhum |
+| `mkdocs-terminal` no `requirements-dev.txt` | Não é o tema deste site, nem aparece no `mkdocs.yml` |
+
+O `termynal-init.js` merece nota, porque era **código ativo e defeituoso**: além
+do inicializador do termynal, ele carregava um seletor de fontes que dependia de
+símbolos inexistentes aqui, e um `startLoop(9000)` que chamava
+`renderLogoAnimation()` **a cada nove segundos**. Como o script da animação só
+era carregado na página inicial, toda página do site lançava
+`renderLogoAnimation is not defined` em laço infinito — e, na inicial, teria
+redesenhado a animação indefinidamente, o que contraria o critério WCAG 2.2.2.
+
+Resultado: `docs/assets` caiu de **17 MB para 28 KB**.
+
+## Decisão registrada: sem `mkdocs-gen-files`
+
+O site do `param-manager` gera uma página "Estrutura" com
+`mkdocs-gen-files` + `docs/gen_tree.py`. Isso foi montado aqui e **removido
+depois**: o `mkdocs-gen-files` não se entende com o `mkdocs-static-i18n` — a
+página gerada cai em `Unhandled file case` e nunca entra no `nav`, reprovando o
+build estrito.
+
+Saíram junto o `gen_tree.py`, o `filetree.js` e os 895 ícones em
+`assets/svgs/` (8,7 MB), que existiam só para alimentar aquela página.
