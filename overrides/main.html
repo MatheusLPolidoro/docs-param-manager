@@ -27,6 +27,18 @@
   {% endif %}
 
   <div class="doc-actions" role="group" aria-label="{{ rotulo_grupo }}">
+    {#
+      O seletor de fonte é montado por assets/js/typography.js dentro deste
+      vão. Escrever o <select> aqui, no template, o faria aparecer também
+      com o JavaScript desligado — visível, focável e sem efeito nenhum ao
+      ser usado, que é pior do que não haver controle.
+
+      Os rótulos dele vêm de assets/js/pm-i18n.js, e não deste bloco de
+      traduções: são cadeias que também servem à animação e ao terminal, e
+      um mesmo texto declarado em dois lugares diverge.
+    #}
+    <span data-pm-fonte></span>
+
     <a
       class="doc-actions__btn"
       href="index.md"

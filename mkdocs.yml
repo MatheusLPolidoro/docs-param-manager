@@ -14,6 +14,17 @@ theme:
   logo: assets/logo.svg
   favicon: assets/favicon.svg
   language: pt-BR
+  # Inter foi desenhada para texto de interface em tela e tem altura de x
+  # maior que a Roboto padrão do tema, o que se paga em leitura longa. A
+  # JetBrains Mono distingue 0/O e 1/l/I, que num site cheio de nome de
+  # variável e de chave hexadecimal não é detalhe.
+  #
+  # As duas vêm do Google Fonts, como já vinha a Roboto — o tema baixa
+  # sozinho. Quem estiver sem saída para a internet troca para "Do
+  # sistema" no seletor da barra de ações e não depende de rede nenhuma.
+  font:
+    text: Inter
+    code: JetBrains Mono
   features:
     - content.code.annotate
     - content.code.copy
@@ -135,11 +146,27 @@ extra:
   version:
     provider: mike
 
+# A ordem importa: `a11y.css` fica por último porque é ele que corrige o
+# que os outros possam ter estragado — anel de foco, contraste, movimento.
 extra_css:
   - assets/css/marca.css
+  - assets/css/tipografia.css
+  - assets/css/termynal.css
   - assets/css/a11y.css
 
+# `pm-i18n.js` primeiro: os outros três leem `window.pmText` dele.
+# `termynal.js` antes de `terminal.js` pelo mesmo motivo.
+#
+# `LogoAnimation.js` **não** está aqui, e não é esquecimento: são 17 MB de
+# quadros SVG gerados, que no `extra_javascript` seriam baixados em todas
+# as 21 páginas do site. Quem o carrega é `logo-animation.js`, sob demanda,
+# só na página que tem o bloco da marca — ver o cabeçalho daquele arquivo.
 extra_javascript:
+  - assets/js/pm-i18n.js
+  - assets/js/termynal.js
+  - assets/js/terminal.js
+  - assets/js/logo-animation.js
+  - assets/js/typography.js
   - assets/js/doc-actions.js
 
 markdown_extensions:

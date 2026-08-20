@@ -32,18 +32,95 @@
   margin-bottom: 2rem;
 }
 
-/* A placa roxa está dentro do próprio SVG (assets/favicon.svg): o
-   logo.svg é branco sobre transparente e sumiria no tema claro. */
-.pm-heroi__marca {
-  flex: 0 0 auto;
-  width: 132px;
-  height: 132px;
+/* A marca do herói é a assinatura animada, não a placa quadrada: o que a
+   animação desenha é o logotipo por extenso, em 16:9, e a 132 px de lado
+   ele sairia ilegível. A placa (assets/favicon.svg) continua sendo o
+   favicon e o logo da barra superior.
+
+   `flex-basis` em `rem` e `max-width` em vez de largura fixa: a marca
+   encolhe com a coluna em vez de forçar rolagem horizontal (WCAG 1.4.10).
+   O `aspect-ratio` reserva a altura desde o primeiro quadro de renderização,
+   então trocar o cartaz pela animação não empurra o texto para baixo. */
+.pm-marca {
+  position: relative;
+  flex: 1 1 20rem;
+  min-width: 0;
+  max-width: 30rem;
 }
 
-.pm-heroi__marca img {
-  width: 132px;
-  height: 132px;
+/* O `md_in_html` embrulha cada filho em `<p>` ao processar o bloco como
+   Markdown — inclusive o `<svg>` vazio da animação. Sem zerar a margem,
+   sobra um vão entre o cartaz e o botão, e ele muda de tamanho conforme a
+   animação está ou não escondida. */
+.pm-marca p {
+  margin: 0;
+}
+
+.pm-marca__cartaz img,
+.pm-marca__tela {
   display: block;
+  width: 100%;
+  height: auto;
+  /* Mesma proporção do viewBox recortado (assets/marca-animada.svg): a
+     altura fica reservada desde o primeiro quadro, então trocar o cartaz
+     pela animação não empurra o texto para baixo. */
+  aspect-ratio: 1482 / 519;
+}
+
+/* O `display: block` acima vence o `display: none` que o navegador aplica
+   a `[hidden]`; sem isto o cartaz e a animação apareceriam juntos. */
+.pm-marca [hidden] {
+  display: none !important;
+}
+
+/* O controle de reprodução é o que permite a animação existir aqui: sem um
+   jeito visível de parar, conteúdo em movimento por mais de cinco segundos
+   reprova a WCAG 2.2.2. Ele fica sempre na página, não só no hover — um
+   controle que só aparece com o mouse em cima não existe para quem navega
+   por teclado. */
+.pm-marca__controle {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 0.25rem;
+  padding: 0.3rem 0.8rem;
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--pm-roxo);
+  background: transparent;
+  border: 1px solid var(--pm-borda);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.pm-marca__controle:hover {
+  background: var(--pm-fundo-suave);
+  border-color: var(--pm-roxo);
+}
+
+.pm-marca__controle[disabled] {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* Falha de carga do arquivo de 17 MB não pode ser silenciosa: o bloco
+   guarda a mensagem em `data-pm-erro` e ela aparece abaixo do cartaz. */
+.pm-marca[data-pm-erro]::after {
+  content: attr(data-pm-erro);
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.68rem;
+  color: var(--pm-roxo);
+}
+
+/* Na impressão sobra o cartaz — botão e animação não têm o que fazer no
+   papel. */
+@media print {
+  .pm-marca__controle {
+    display: none !important;
+  }
 }
 
 .pm-heroi__texto {

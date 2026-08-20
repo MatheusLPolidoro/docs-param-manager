@@ -1,8 +1,12 @@
 # Instalação
 
-```bash
-pip install param-manager
-```
+<div class="pm-terminal" data-pm-terminal data-pm-command="pip install param-manager">
+<div class="termynal" data-termynal data-ty-startDelay="500" data-ty-typeDelay="45" data-ty-lineDelay="800">
+<span data-ty="input">pip install param-manager</span>
+<span data-ty="progress"></span>
+<span data-ty>Successfully installed param-manager-0.4.3</span>
+</div>
+</div>
 
 ## Requisitos
 

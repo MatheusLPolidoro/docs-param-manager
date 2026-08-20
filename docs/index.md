@@ -1,12 +1,21 @@
 # Param Manager
 
 <div class="pm-heroi" markdown>
-<div class="pm-heroi__marca" markdown>
+<div class="pm-marca" data-pm-logo markdown>
+<div class="pm-marca__cartaz" markdown>
 <!-- Sintaxe Markdown, e não <img>: o mkdocs reescreve o caminho relativo
      de imagem em Markdown para cada página, e o build em inglês fica em
      /en/. Um src fixo em HTML apontaria para /en/assets/, que não existe
-     — os assets ficam só na raiz do site. -->
-![Marca do Param Manager: um grafo de nós conectados](assets/favicon.svg)
+     — os assets ficam só na raiz do site.
+
+     Este é o cartaz: o quadro final da animação, parado. É o que aparece
+     antes de o desenho animado chegar, o que fica para quem pediu menos
+     movimento ao sistema, e o que volta quando a animação acaba — o
+     último quadro do arquivo gerado limpa o SVG, então sem o cartaz a
+     área terminaria vazia. -->
+![Marca do Param Manager: o logotipo por extenso](assets/marca-animada.svg)
+</div>
+<svg id="LogoAnimation" class="pm-marca__tela" viewBox="219 280 1482 519" aria-hidden="true" hidden></svg>
 </div>
 <div class="pm-heroi__texto" markdown>
 
