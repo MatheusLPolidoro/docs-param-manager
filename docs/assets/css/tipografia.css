@@ -1,0 +1,156 @@
+/*
+ * Tipografia.
+ *
+ * A fonte base vem do `theme.font` no mkdocs.yml (Inter para texto,
+ * JetBrains Mono para código). Aqui ficam o ritmo e as medidas — o que o
+ * tema não decide e o que a leitura longa cobra.
+ *
+ * Duas restrições mandam em tudo o que está abaixo, e as duas já estão
+ * declaradas na página de acessibilidade:
+ *
+ * - **Nada em `px` no texto.** Tamanho em pixel ignora a fonte que a
+ *   pessoa configurou no navegador (WCAG 1.4.4). Tudo aqui é `rem` ou
+ *   `em`.
+ * - **Nada que dependa de largura fixa.** A ampliação até 200 % não pode
+ *   produzir rolagem horizontal (WCAG 1.4.10), então a medida de linha é
+ *   dada em `ch` com `max-width`, que encolhe junto.
+ *
+ * O controle de troca de fonte fica no fim do arquivo; a lógica dele está
+ * em `assets/js/typography.js`.
+ */
+
+/* ------------------------------------------------------------- ritmo */
+
+.md-typeset {
+  /* 0.8rem é o padrão do Material. Um passo acima, porque este site é
+     prosa longa com tabela de referência no meio, não referência de API
+     para varredura rápida. */
+  font-size: 0.84rem;
+  line-height: 1.72;
+}
+
+.md-typeset p,
+.md-typeset li {
+  /* `pretty` evita a última linha com uma palavra sozinha. Onde não é
+     suportado, é ignorado — não há fallback a escrever. */
+  text-wrap: pretty;
+}
+
+/* Medida de linha: acima de ~75 caracteres o olho perde o começo da linha
+   seguinte. Só no parágrafo e no item de lista — tabela, bloco de código e
+   diagrama precisam da largura inteira. */
+.md-typeset > p,
+.md-typeset > ul > li,
+.md-typeset > ol > li {
+  max-width: 74ch;
+}
+
+.md-typeset p + p {
+  margin-top: 0.9em;
+}
+
+/* URL comprida em texto é o que empurra a página para a rolagem
+   horizontal na largura de celular. */
+.md-typeset a,
+.md-typeset code {
+  overflow-wrap: break-word;
+}
+
+/* ---------------------------------------------------------- títulos */
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  font-weight: 700;
+  line-height: 1.25;
+  /* `balance` distribui as palavras entre as linhas de um título curto;
+     sem ele, um título de duas linhas costuma sair 90 % / 10 %. */
+  text-wrap: balance;
+}
+
+.md-typeset h1 {
+  font-size: 1.9em;
+  letter-spacing: -0.02em;
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset h2 {
+  font-size: 1.4em;
+  letter-spacing: -0.01em;
+  margin-top: 2em;
+}
+
+.md-typeset h3 {
+  font-size: 1.1em;
+  margin-top: 1.6em;
+}
+
+/* ----------------------------------------------------------- tabelas */
+
+.md-typeset table:not([class]) {
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.md-typeset table:not([class]) th {
+  font-weight: 700;
+}
+
+/* Números que se comparam coluna a coluna — versões, portas, tamanhos —
+   só alinham com algarismos de largura fixa. */
+.md-typeset table:not([class]) td {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------ código */
+
+.md-typeset code {
+  font-size: 0.85em;
+}
+
+.md-typeset pre > code {
+  font-size: 0.7rem;
+  line-height: 1.6;
+}
+
+/* ------------------------------------------------- controle de fonte */
+
+.doc-actions__fonte {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.doc-actions__rotulo {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--pm-roxo, #5e35b1);
+}
+
+.doc-actions__select {
+  /* Mesmo alvo de toque dos outros controles da barra (WCAG 2.5.5). */
+  min-height: 44px;
+  padding: 0.25rem 0.6rem;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  /* Cores explícitas: com `background: transparent` a lista aberta herda o
+     branco do sistema e, no tema escuro, sai texto claro sobre fundo
+     claro. */
+  color: var(--md-default-fg-color);
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--pm-borda, rgba(94, 53, 177, 0.28));
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.doc-actions__select:hover {
+  border-color: var(--pm-roxo, #5e35b1);
+}
+
+@media print {
+  .doc-actions__fonte {
+    display: none !important;
+  }
+}

@@ -1,0 +1,1 @@
+O arquivo da animação da marca tem 17 MB e **não** é carregado em toda página: ele é buscado só na página inicial, e só quando a animação vai de fato tocar. Nas outras 20 páginas do site, e para quem pediu menos movimento, ele nunca chega a ser requisitado.

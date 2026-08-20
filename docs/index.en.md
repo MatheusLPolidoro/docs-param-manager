@@ -1,12 +1,21 @@
 # Param Manager
 
 <div class="pm-heroi" markdown>
-<div class="pm-heroi__marca" markdown>
+<div class="pm-marca" data-pm-logo markdown>
+<div class="pm-marca__cartaz" markdown>
 <!-- Markdown syntax rather than <img>: mkdocs rewrites relative image
      paths in Markdown per page, and the English build lives under /en/.
      A hard-coded HTML src would point at /en/assets/, which does not
-     exist — assets live only at the site root. -->
-![Param Manager mark: a graph of connected nodes](assets/favicon.svg)
+     exist — assets live only at the site root.
+
+     This is the poster: the finished frame of the animation, still. It is
+     what shows before the animated drawing arrives, what stays for anyone
+     who asked the system for less motion, and what comes back when the
+     animation ends — the generated file's last frame clears the SVG, so
+     without the poster the area would end up blank. -->
+![Param Manager wordmark](assets/marca-animada.svg)
+</div>
+<svg id="LogoAnimation" class="pm-marca__tela" viewBox="219 280 1482 519" aria-hidden="true" hidden></svg>
 </div>
 <div class="pm-heroi__texto" markdown>
 

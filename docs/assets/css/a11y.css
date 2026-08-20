@@ -43,9 +43,18 @@
 /* -------------------------------------------------------------------
  * 2.3.3 Animação por interação / 2.2.2 Pausar, parar, ocultar
  *
- * Nada aqui se move por conta própria: a marca do herói é um SVG
- * estático. O que resta são transições de hover e foco, que somem para
- * quem pediu menos movimento ao sistema operacional.
+ * Duas coisas neste site se movem: a marca animada da página inicial e a
+ * digitação dos blocos de terminal. As duas têm botão visível para parar,
+ * as duas tocam uma vez em vez de repetir sem fim, e nenhuma das duas
+ * começa sozinha quando o sistema pede menos movimento.
+ *
+ * **A regra abaixo não é o que garante isso.** Ela zera a duração de
+ * animação e transição *do CSS*; a marca e o terminal são temporizadores
+ * de JavaScript, que nenhuma media query alcança. Quem os segura é o
+ * `matchMedia('(prefers-reduced-motion: reduce)')` dentro de
+ * `assets/js/logo-animation.js` e `assets/js/terminal.js`. Remover a
+ * verificação de lá reprova o critério **sem** mudar nada aqui — e sem
+ * nada ficar vermelho no build.
  * ------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {

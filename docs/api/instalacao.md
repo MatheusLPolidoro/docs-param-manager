@@ -25,9 +25,15 @@ Copy-Item .env.example .env
 
 ### Rodando
 
-```powershell
-task run
-```
+<div class="pm-terminal" data-pm-terminal data-pm-command="task run">
+<div class="termynal" data-termynal data-shell="powershell" data-ty-startDelay="500" data-ty-typeDelay="45" data-ty-lineDelay="900">
+<span data-ty="input" data-ty-prompt="PS&gt;">task run</span>
+<span data-ty>INFO:     Started server process</span>
+<span data-ty>INFO:     Waiting for application startup.</span>
+<span data-ty>INFO:     Application startup complete.</span>
+<span data-ty>INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)</span>
+</div>
+</div>
 
 Que é atalho para:
 
