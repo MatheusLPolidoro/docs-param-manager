@@ -29,20 +29,29 @@ muda entre o tema claro e o escuro para manter o contraste em ambos
 ### Movimento
 
 **Duas coisas se movem neste site, e as duas param.** A marca da página inicial
-se desenha uma vez; os blocos de terminal digitam o comando uma vez. Fora isso
-não há carrossel, autoplay nem contador — o que resta são transições de hover e
-foco, que `prefers-reduced-motion: reduce` desliga.
+se redesenha em laço, com 15 segundos de intervalo entre uma volta e a
+seguinte; os blocos de terminal digitam o comando uma vez. Fora isso não há
+carrossel, autoplay nem contador — o que resta são transições de hover e foco,
+que `prefers-reduced-motion: reduce` desliga.
 
 O que sustenta os critérios 2.2.2 e 2.3.3, ponto a ponto:
 
-- **Toca uma vez, não em laço.** Nenhuma das duas se repete sozinha. Repetir é
-  uma escolha de quem lê, num botão.
-- **Botão visível para parar, sempre na página.** Não aparece só no hover: um
-  controle que exige mouse não existe para quem navega por teclado.
-- **Não começa sozinho para quem pediu menos movimento.** Com
+- **Botão visível para parar, sempre na página.** É ele que satisfaz o critério
+  2.2.2 — o que a norma exige de conteúdo em movimento com mais de cinco
+  segundos é um **mecanismo para pausar**, e não a ausência de repetição. O
+  botão interrompe o ciclo inteiro, a volta em curso e as futuras, e não
+  aparece só no hover: um controle que exige mouse não existe para quem navega
+  por teclado.
+- **A pausa entre as voltas é longa de propósito.** Quinze segundos separam uma
+  volta de 8,5 s da seguinte, então na maior parte do tempo a página está
+  parada. Movimento contínuo e movimento intermitente cansam de formas
+  diferentes.
+- **O laço para quando a aba sai da frente** e recomeça quando ela volta.
+- **Não começa sozinho — e não repete — para quem pediu menos movimento.** Com
   `prefers-reduced-motion: reduce`, a marca fica no quadro parado e o terminal
   fica com o texto inteiro à vista. Os botões continuam ali para quem quiser
-  ver a animação assim mesmo.
+  ver a animação assim mesmo, e nesse caso ela **toca uma vez só**: querer ver
+  uma animação não é pedir que ela recomece a cada 15 segundos.
 - **O terminal digita fora da tela.** Ele só começa quando o bloco entra no
   campo de visão — animação que termina antes de a pessoa chegar não é
   animação, é conteúdo que apareceu do nada.
@@ -67,9 +76,9 @@ laço não.
 
 ### Tipografia e troca de fonte
 
-A barra de ações no topo de cada página traz um seletor de **fonte do texto**,
-ao lado dos botões de baixar `.md` e salvar em PDF. A escolha vale para o site
-inteiro e fica guardada no navegador.
+A barra superior traz um seletor de **fonte do texto**, ao lado do alternador
+de tema e do seletor de idioma, e junto dos botões de baixar `.md` e salvar em
+PDF. A escolha vale para o site inteiro e fica guardada no navegador.
 
 São quatro opções, e duas delas existem por acessibilidade e não por gosto:
 
@@ -98,7 +107,10 @@ sobre fundo colorido — têm cor corrigida explicitamente para os dois temas
 - Toda imagem tem `alt`; ícones decorativos dentro de botões são
   `aria-hidden="true"` e `focusable="false"`, para que o leitor de tela anuncie
   só o rótulo de texto.
-- A barra de ações é um `role="group"` com rótulo acessível.
+- Os controles da barra superior — fonte, `.md` e PDF — são `<button>` e `<a>`
+  nativos com nome acessível próprio, dentro da `<nav>` que o tema já rotula.
+  A lista de fontes marca a opção em vigor com `aria-current`, e esse realce
+  não é só de cor: tem peso de traço e marca de seleção (WCAG 1.4.1).
 - O `lang` do documento acompanha o idioma da página, definido pelo próprio
   mecanismo de tradução (WCAG 3.1.1).
 - Os blocos de terminal saem da árvore de acessibilidade enquanto digitam e

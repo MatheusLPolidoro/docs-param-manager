@@ -1,28 +1,29 @@
 /*
- * Animação da marca — carregamento sob demanda e controle de reprodução.
+ * Animação da marca — carregamento sob demanda, laço e controle de pausa.
  *
  * O desenho vem de `assets/js/LogoAnimation.js`, o mesmo arquivo gerado que
  * o `param-manager` usa. Ele tem 17 MB: são 510 quadros de SVG escritos
- * quadro a quadro em JavaScript. Duas consequências mandam no desenho
- * deste arquivo.
+ * quadro a quadro em JavaScript. Daí a primeira regra deste arquivo: **ele não
+ * pode entrar no `extra_javascript`**, onde seria baixado em todas as 21
+ * páginas do site, inclusive nas 20 que não têm animação nenhuma. Aqui o
+ * arquivo grande só é buscado na página que tem o bloco.
  *
- * 1. **Ele não pode entrar no `extra_javascript`.** Lá seria baixado em
- *    toda página do site, inclusive nas 20 que não têm animação nenhuma.
- *    Aqui o arquivo grande só é buscado na página que tem o bloco, e só
- *    quando a animação vai de fato tocar.
+ * A animação roda **em laço**, com 15 segundos de intervalo entre uma volta e
+ * a seguinte. O que a versão herdada do `param-manager` fazia de errado não
+ * era repetir — era repetir **sem nenhum jeito de parar**: um `setInterval` de
+ * nove segundos, em toda página, sem controle na tela. É isso que a WCAG 2.2.2
+ * proíbe, e o critério é satisfeito por um mecanismo de pausa, não pela
+ * ausência de repetição. O mecanismo aqui é o botão, visível, sempre presente,
+ * que interrompe o ciclo inteiro — a volta em curso e as futuras.
  *
- * 2. **Ele não pode tocar sozinho e para sempre.** A versão do
- *    `param-manager` roda `renderLogoAnimation()` num `setInterval` de 9
- *    segundos que nunca para — conteúdo em movimento contínuo, sem
- *    controle para pausar, que é exatamente o que a WCAG 2.2.2 proíbe.
- *    Foi por isso que a animação tinha sido removida deste site. Ela volta
- *    aqui com o que faltava: toca **uma vez**, tem botão de pausa visível
- *    enquanto toca, e não começa sozinha para quem pediu menos movimento
- *    ao sistema operacional (WCAG 2.3.3).
+ * Com `prefers-reduced-motion: reduce` nada começa sozinho e **não há laço**:
+ * a página fica no cartaz estático, e o botão, se acionado, toca uma vez só.
+ * Quem pediu menos movimento pode querer ver a animação; querer vê-la uma vez
+ * não é pedir que ela recomece a cada 15 segundos (WCAG 2.3.3).
  *
- * Antes, durante a carga e depois do fim, o que aparece é o cartaz
- * estático (`assets/marca-animada.svg`). Sem ele a área ficaria em branco
- * nos três momentos: o último quadro do arquivo gerado limpa o SVG.
+ * Antes da carga, na pausa entre as voltas e depois de parada, o que aparece é
+ * o cartaz estático (`assets/marca-animada.svg`). Sem ele a área ficaria em
+ * branco nesses três momentos: o último quadro do arquivo gerado limpa o SVG.
  */
 (function () {
   'use strict';
@@ -40,10 +41,12 @@
   })();
 
   /* Duração do arquivo gerado: o último temporizador dele dispara em 8500
-     ms. Só serve para saber quando trocar o rótulo do botão de "pausar"
-     para "repetir" — se um dia o arquivo mudar de duração, o rótulo troca
+     ms. Se um dia o arquivo mudar de duração, a volta é dada como encerrada
      cedo ou tarde demais e nada mais quebra. */
   var DURATION_MS = 8500;
+
+  /* Intervalo entre uma volta e a próxima. */
+  var PAUSE_MS = 15000;
 
   var loading = null;
 
@@ -116,8 +119,14 @@
     button.className = 'pm-marca__controle';
     block.appendChild(button);
 
-    var endTimer = null;
-    var playing = false;
+    /* `looping`: o ciclo está ligado — desenhando **ou** na pausa entre as
+       voltas. É o que o botão desliga.
+       `drawing`: uma volta está sendo desenhada agora. */
+    var repeats = !prefersReducedMotion();
+    var looping = false;
+    var drawing = false;
+    var frameTimer = null;
+    var cycleTimer = null;
 
     function label(text, busy) {
       button.textContent = text;
@@ -125,8 +134,8 @@
       button.disabled = Boolean(busy);
     }
 
-    function showPoster() {
-      playing = false;
+    function toPoster() {
+      drawing = false;
       show(canvas, false);
       show(poster, true);
       if (canvas.replaceChildren) {
@@ -134,38 +143,75 @@
       }
     }
 
-    function stop() {
-      if (endTimer) {
-        clearTimeout(endTimer);
-        endTimer = null;
-      }
-      stopDrawing();
-      showPoster();
-      label(window.pmText('animationReplay'));
+    function draw() {
+      /* O arquivo gerado captura o elemento uma vez, na carga. Se a página
+         trocou de conteúdo desde então, a referência dele é um nó que não
+         está mais no documento — reatribuir é mais barato que recarregar
+         17 MB. */
+      window.logoanimation = canvas;
+      show(poster, false);
+      show(canvas, true);
+      drawing = true;
+      window.renderLogoAnimation();
+      label(window.pmText('animationPause'));
+
+      frameTimer = setTimeout(function () {
+        frameTimer = null;
+        toPoster();
+        if (!looping) {
+          return;
+        }
+        if (repeats) {
+          scheduleNext();
+        } else {
+          looping = false;
+          label(window.pmText('animationReplay'));
+        }
+      }, DURATION_MS);
     }
 
-    function play() {
+    /* Desenhar 510 quadros numa aba que ninguém está vendo é trabalho jogado
+       fora, e o navegador estrangula os temporizadores de aba oculta o
+       bastante para a volta sair truncada. O ciclo espera a aba voltar. */
+    function scheduleNext() {
+      if (document.hidden) {
+        return;
+      }
+      cycleTimer = setTimeout(function () {
+        cycleTimer = null;
+        if (looping) {
+          draw();
+        }
+      }, PAUSE_MS);
+    }
+
+    function stop() {
+      looping = false;
+      if (frameTimer) {
+        clearTimeout(frameTimer);
+        frameTimer = null;
+      }
+      if (cycleTimer) {
+        clearTimeout(cycleTimer);
+        cycleTimer = null;
+      }
+      stopDrawing();
+      toPoster();
+      label(window.pmText('animationPlay'));
+    }
+
+    function start() {
+      looping = true;
       label(window.pmText('animationLoading'), true);
       loadDrawing().then(
         function () {
-          /* O arquivo gerado captura o elemento uma vez, na carga. Se a
-             página trocou de conteúdo desde então, a referência dele é um
-             nó que não está mais no documento — reatribuir é mais barato
-             que recarregar 17 MB. */
-          window.logoanimation = canvas;
-          show(poster, false);
-          show(canvas, true);
-          playing = true;
-          window.renderLogoAnimation();
-          label(window.pmText('animationPause'));
-          endTimer = setTimeout(function () {
-            endTimer = null;
-            showPoster();
-            label(window.pmText('animationReplay'));
-          }, DURATION_MS);
+          if (looping) {
+            draw();
+          }
         },
         function () {
-          showPoster();
+          looping = false;
+          toPoster();
           label(window.pmText('animationPlay'));
           block.setAttribute('data-pm-erro', window.pmText('animationFailed'));
         }
@@ -173,22 +219,32 @@
     }
 
     button.addEventListener('click', function () {
-      if (playing) {
+      if (looping) {
         stop();
       } else {
-        play();
+        start();
       }
     });
 
-    showPoster();
+    document.addEventListener('visibilitychange', function () {
+      if (!looping || !repeats) {
+        return;
+      }
+      if (document.hidden) {
+        if (cycleTimer) {
+          clearTimeout(cycleTimer);
+          cycleTimer = null;
+        }
+      } else if (!drawing && !cycleTimer) {
+        scheduleNext();
+      }
+    });
+
+    toPoster();
     label(window.pmText('animationPlay'));
 
-    /* Só começa sozinha quando ninguém pediu o contrário. Com
-       `prefers-reduced-motion` o bloco fica no cartaz estático e o botão
-       continua ali — quem quiser ver a animação, vê; ela é que não se
-       impõe. */
-    if (!prefersReducedMotion()) {
-      play();
+    if (repeats) {
+      start();
     }
   }
 

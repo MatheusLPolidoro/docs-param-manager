@@ -29,21 +29,30 @@ changes between the light and dark themes to keep contrast in both
 
 ### Motion
 
-**Two things move on this site, and both stop.** The home page wordmark draws
-itself once; the terminal blocks type their command once. Beyond that there is
-no carousel, autoplay or counter — what remains are hover and focus transitions,
-which `prefers-reduced-motion: reduce` disables.
+**Two things move on this site, and both stop.** The home page wordmark redraws
+itself in a loop, with 15 seconds between one pass and the next; the terminal
+blocks type their command once. Beyond that there is no carousel, autoplay or
+counter — what remains are hover and focus transitions, which
+`prefers-reduced-motion: reduce` disables.
 
 What holds criteria 2.2.2 and 2.3.3 up, point by point:
 
-- **Plays once, not in a loop.** Neither repeats on its own. Repeating is the
-  reader's choice, on a button.
-- **A visible stop button, always on the page.** Not only on hover: a control
-  that requires a mouse does not exist for keyboard navigation.
-- **Nothing starts by itself for anyone who asked for less motion.** With
-  `prefers-reduced-motion: reduce` the wordmark stays on its still frame and the
-  terminal keeps its full text in view. The buttons remain there for anyone who
-  wants the animation anyway.
+- **A visible stop button, always on the page.** It is what satisfies criterion
+  2.2.2 — what the standard requires of content moving for more than five
+  seconds is a **mechanism to pause**, not the absence of repetition. The button
+  stops the whole cycle, the pass under way and the ones to come, and it is not
+  hover-only: a control that requires a mouse does not exist for keyboard
+  navigation.
+- **The gap between passes is long on purpose.** Fifteen seconds separate one
+  8.5 s pass from the next, so the page is still most of the time. Continuous
+  motion and intermittent motion tire the reader in different ways.
+- **The loop stops when the tab goes away** and resumes when it comes back.
+- **Nothing starts by itself — and nothing repeats — for anyone who asked for
+  less motion.** With `prefers-reduced-motion: reduce` the wordmark stays on its
+  still frame and the terminal keeps its full text in view. The buttons remain
+  there for anyone who wants the animation anyway, and in that case it **plays
+  exactly once**: wanting to see an animation is not asking for it to restart
+  every 15 seconds.
 - **The terminal does not type off-screen.** It only starts when the block
   enters the viewport — an animation that finishes before you arrive is not an
   animation, it is content that appeared out of nowhere.
@@ -68,9 +77,9 @@ came back; the loop did not.
 
 ### Typography and font switching
 
-The action bar at the top of every page carries a **text font** selector, next
-to the download `.md` and save as PDF buttons. The choice applies to the whole
-site and is kept in the browser.
+The top bar carries a **text font** selector, next to the theme toggle and the
+language selector, alongside the download `.md` and save as PDF buttons. The
+choice applies to the whole site and is kept in the browser.
 
 There are four options, and two of them exist for accessibility rather than
 taste:
@@ -100,7 +109,11 @@ for both themes (WCAG 1.4.3).
 - Every image has `alt`; decorative icons inside buttons are
   `aria-hidden="true"` and `focusable="false"`, so a screen reader announces
   only the text label.
-- The action bar is a `role="group"` with an accessible name.
+- The top-bar controls — font, `.md` and PDF — are native `<button>` and `<a>`
+  elements with their own accessible names, inside the `<nav>` the theme
+  already labels. The font list marks the option in force with `aria-current`,
+  and that mark is not colour alone: it carries stroke weight and a check
+  (WCAG 1.4.1).
 - The terminal blocks leave the accessibility tree while they type and are
   replaced by a transcript of the whole session. A screen reader does not
   follow text assembling itself character by character: it gets the result.

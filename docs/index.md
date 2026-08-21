@@ -70,5 +70,5 @@ certo** — e a página está com defeito, o que é um problema a ser reportado.
     O botão **Baixar .md** entrega o arquivo Markdown original, exatamente como
     está no repositório. O **Salvar em PDF** abre a caixa de impressão do
     navegador com uma folha de estilo que remove a navegação — o que sai é só o
-    conteúdo. Os dois estão no topo de toda página, e a documentação inteira
-    existe em português e inglês.
+    conteúdo. Os dois estão na barra superior de toda página, junto do seletor
+    de fonte, e a documentação inteira existe em português e inglês.
