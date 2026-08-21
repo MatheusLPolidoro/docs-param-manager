@@ -7,15 +7,13 @@
  */
 
 :root {
-  --pm-roxo: #5e35b1;
-  --pm-roxo-claro: #7e57c2;
+  --pm-cor: #5e35b1;
   --pm-borda: rgba(94, 53, 177, 0.28);
   --pm-fundo-suave: rgba(94, 53, 177, 0.06);
 }
 
 [data-md-color-scheme="slate"] {
-  --pm-roxo: #b39ddb;
-  --pm-roxo-claro: #d1c4e9;
+  --pm-cor: #b39ddb;
   --pm-borda: rgba(179, 157, 219, 0.32);
   --pm-fundo-suave: rgba(179, 157, 219, 0.08);
 }
@@ -144,14 +142,14 @@
 
 .pm-cartao:hover,
 .pm-cartao:focus-visible {
-  border-color: var(--pm-roxo);
+  border-color: var(--pm-cor);
   transform: translateY(-2px);
 }
 
 .pm-cartao__titulo {
   display: block;
   font-weight: 700;
-  color: var(--pm-roxo);
+  color: var(--pm-cor);
   margin-bottom: 0.35rem;
 }
 

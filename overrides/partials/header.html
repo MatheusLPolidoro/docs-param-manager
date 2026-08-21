@@ -7,10 +7,12 @@
   primeiro. A barra que existia no conteúdo foi removida junto — com o
   `overrides/main.html`, que não tinha mais nada a fazer.
 
-  O resto do arquivo é o `partials/header.html` do mkdocs-material 9.6.12,
-  copiado sem alteração. **Ao atualizar o tema, conferir se o original mudou** —
-  é a dívida que se paga por sobrescrever um parcial inteiro, e o próprio
-  cabeçalho do arquivo original avisa que ele é gerado.
+  O resto do arquivo é o `partials/header.html` do mkdocs-material copiado sem
+  alteração. **Ao atualizar o tema, conferir se o original mudou** — é a dívida
+  que se paga por sobrescrever um parcial inteiro, e o próprio cabeçalho do
+  arquivo original avisa que ele é gerado. Conferido nas duas versões em uso
+  hoje: a 9.6.12 (docs-param-manager) e a 9.7.7 (docs-casehub) trazem este
+  parcial byte a byte igual.
 
   Sobre os rótulos: eles vivem no bloco de tradução abaixo porque quem os
   escreve é o Jinja. As cadeias que nascem em tempo de execução — as opções do
