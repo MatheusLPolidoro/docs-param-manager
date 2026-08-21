@@ -1,0 +1,1 @@
+Baixar `.md`, salvar em PDF e escolher a fonte passaram a morar na barra superior, junto do tema, do idioma e da busca — e não mais numa faixa própria dentro do conteúdo, acima do título. São os mesmos controles, no lugar onde quem procura um controle olha primeiro, e o texto da página começa no texto da página.

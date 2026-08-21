@@ -21,9 +21,13 @@
  *   (I/l/1, O/0). É a razão de o controle existir na barra de ações, ao
  *   lado do "baixar .md", e não escondido num canto.
  *
- * O controle é montado por JavaScript de propósito. Um `<select>` escrito
- * no template apareceria mesmo com o JavaScript desligado, sem fazer nada
- * ao ser usado — um controle morto na tela é pior que controle nenhum.
+ * O controle mora na barra superior, ao lado do seletor de idioma, e usa o
+ * mesmo `md-select` do tema — a abertura por hover e por foco vem do CSS do
+ * Material, sem uma linha aqui. A casca é escrita em
+ * `overrides/partials/header.html` (para o ícone vir do conjunto do próprio
+ * tema), mas chega vazia e com `hidden`: é este arquivo que preenche a lista e
+ * a revela. Sem JavaScript o controle não aparece, em vez de aparecer focável
+ * e inerte.
  */
 (function () {
   'use strict';
@@ -115,39 +119,52 @@
   }
 
   function build(host) {
+    var list = host.querySelector('[data-pm-fonte-lista]');
+    if (!list) {
+      return;
+    }
     var current = readPreference();
 
-    var field = document.createElement('span');
-    field.className = 'doc-actions__fonte';
+    OPTIONS.forEach(function (option) {
+      var item = document.createElement('li');
+      item.className = 'md-select__item';
 
-    var label = document.createElement('label');
-    label.className = 'doc-actions__rotulo';
-    label.setAttribute('for', 'pm-fonte');
-    label.textContent = window.pmText('fontLabel');
-
-    var select = document.createElement('select');
-    select.id = 'pm-fonte';
-    select.className = 'doc-actions__select';
-    select.title = window.pmText('fontHelp');
-
-    for (var i = 0; i < OPTIONS.length; i++) {
-      var item = document.createElement('option');
-      item.value = OPTIONS[i].id;
-      item.textContent = window.pmText(OPTIONS[i].label);
-      if (OPTIONS[i].id === current) {
-        item.selected = true;
+      var link = document.createElement('button');
+      link.type = 'button';
+      link.className = 'md-select__link';
+      link.setAttribute('data-pm-fonte-id', option.id);
+      link.textContent = window.pmText(option.label);
+      /* `aria-current` e não `aria-pressed`: a lista é um conjunto de
+         opções em que exatamente uma vale, e não quatro interruptores. */
+      if (option.id === current) {
+        link.setAttribute('aria-current', 'true');
       }
-      select.appendChild(item);
-    }
+      link.addEventListener('click', function () {
+        writePreference(option.id);
+        apply(option.id);
+        mark(list, option.id);
+        /* Tirar o foco fecha o `md-select`, que abre por `:focus-within`.
+           Sem isto o menu fica aberto por cima do conteúdo depois da
+           escolha, e só some no próximo clique fora. */
+        link.blur();
+      });
 
-    select.addEventListener('change', function () {
-      writePreference(select.value);
-      apply(select.value);
+      item.appendChild(link);
+      list.appendChild(item);
     });
 
-    field.appendChild(label);
-    field.appendChild(select);
-    host.appendChild(field);
+    host.removeAttribute('hidden');
+  }
+
+  function mark(list, id) {
+    var links = list.querySelectorAll('.md-select__link');
+    for (var i = 0; i < links.length; i++) {
+      links[i].removeAttribute('aria-current');
+    }
+    var chosen = list.querySelector('[data-pm-fonte-id="' + id + '"]');
+    if (chosen) {
+      chosen.setAttribute('aria-current', 'true');
+    }
   }
 
   function scan() {

@@ -68,5 +68,5 @@ is stated on the page rather than hidden. When this site and the code disagree,
     The **Download .md** button hands you the original Markdown file, exactly as
     it sits in the repository. **Save as PDF** opens the browser print dialog
     with a stylesheet that strips the navigation — what comes out is the content
-    alone. Both sit at the top of every page, and the whole documentation exists
-    in Portuguese and English.
+    alone. Both sit in the top bar of every page, next to the font selector, and
+    the whole documentation exists in Portuguese and English.

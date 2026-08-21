@@ -114,43 +114,45 @@
   line-height: 1.6;
 }
 
-/* ------------------------------------------------- controle de fonte */
+/* --------------------------------------- controles da barra superior */
 
-.doc-actions__fonte {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
+/* O seletor de fonte e o botão de PDF nascem com `hidden` no template e são
+   revelados pelos scripts. O `!important` é preciso porque o
+   `.md-header__option` do tema traz `display: flex`, que vence o
+   `display: none` que o navegador dá a `[hidden]`. */
+.md-header [hidden] {
+  display: none !important;
 }
 
-.doc-actions__rotulo {
-  font-size: 0.68rem;
-  font-weight: 600;
-  color: var(--pm-roxo, #5e35b1);
-}
-
-.doc-actions__select {
-  /* Mesmo alvo de toque dos outros controles da barra (WCAG 2.5.5). */
-  min-height: 44px;
-  padding: 0.25rem 0.6rem;
-  font-family: inherit;
-  font-size: 0.72rem;
-  font-weight: 600;
-  /* Cores explícitas: com `background: transparent` a lista aberta herda o
-     branco do sistema e, no tema escuro, sai texto claro sobre fundo
-     claro. */
-  color: var(--md-default-fg-color);
-  background: var(--md-default-bg-color);
-  border: 1px solid var(--pm-borda, rgba(94, 53, 177, 0.28));
-  border-radius: 999px;
+/* O tema estiliza `.md-select__link` como `<a>`. Aqui a lista de fontes é de
+   `<button>`, porque escolher uma fonte não navega para lugar nenhum — e um
+   `<a href="#">` que não leva a lugar nenhum é exatamente o que confunde quem
+   usa leitor de tela. Estas regras devolvem a aparência de link ao botão. */
+.md-select__list .md-select__link {
+  display: block;
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  background: none;
+  border: 0;
   cursor: pointer;
 }
 
-.doc-actions__select:hover {
-  border-color: var(--pm-roxo, #5e35b1);
+/* A opção em vigor precisa ser distinguível sem depender de cor (WCAG 1.4.1):
+   daí o peso do traço e a marca de seleção, além do realce. */
+.md-select__list .md-select__link[aria-current='true'] {
+  font-weight: 700;
+  color: var(--md-accent-fg-color);
+}
+
+.md-select__list .md-select__link[aria-current='true']::after {
+  content: ' ✓';
 }
 
 @media print {
-  .doc-actions__fonte {
+  .md-header {
     display: none !important;
   }
 }
