@@ -8,6 +8,20 @@ Cada subprojeto continua com o seu próprio `README.md` e o seu próprio
 changelog. Este repositório é o lugar da documentação que atravessa os três —
 o que só faz sentido lendo produto inteiro, não um artefato de cada vez.
 
+## O site
+
+**https://matheuslpolidoro.github.io/docs-param-manager/** — em português e
+inglês, com seletor de idioma e de versão na barra superior.
+
+Ele é publicado em dois lugares a partir do mesmo `main`, e não é redundância
+por descuido: o interno é o que a rede fechada alcança e continua no ar sem
+internet.
+
+| Onde | URL | Quem publica |
+|---|---|---|
+| GitHub Pages (público) | https://matheuslpolidoro.github.io/docs-param-manager/ | `.github/workflows/pages.yml` |
+| GitLab Pages (interno) | http://docs-param-manager-2714dc.pages.127.0.0.1.nip.io:8090 | job `pages` do `.gitlab-ci.yml` |
+
 ## Conteúdo
 
 21 páginas, cada uma em **português e inglês**:
@@ -149,9 +163,10 @@ O pin correto é `10.21.3`, que corrige e ainda respeita o `~=10.2` exigido pelo
 
 ## Publicação
 
-O site é publicado no **GitLab Pages**, versionado pelo **mike**:
+Os dois destinos estão na tabela do começo deste arquivo. O que segue é a
+mecânica de cada um — e ela difere, porque o provedor difere.
 
-**http://docs-param-manager-2714dc.pages.127.0.0.1.nip.io:8090**
+### GitLab Pages (interno)
 
 O job `pages` roda **só no branch padrão** e costura duas ferramentas que não se
 encaixam sozinhas — o mike versiona empurrando para uma branch, o Pages publica
@@ -178,6 +193,18 @@ encaixam sozinhas — o mike versiona empurrando para uma branch, o Pages public
     cair, o job **não falha** — ele entra no caminho degradado, publica sem
     persistir a `gh-pages` e fica verde. O sintoma só aparece na versão
     seguinte, quando a anterior some do seletor.
+
+### GitHub Pages (público)
+
+`.github/workflows/pages.yml`, no push para `main`. É a metade mais simples:
+o GitHub Pages publica a branch direto, então `mike --push` já basta — não há
+árvore para extrair, e o `GITHUB_TOKEN` com `contents: write` cobre o push,
+dispensando o token de projeto e o caminho degradado acima.
+
+O `mkdocs build --strict` roda como passo separado, e não como opção do `mike`:
+o `mike deploy` **não repassa opções ao mkdocs**, e o que viesse depois de `--`
+seria lido como alias posicional, criando uma versão de nome inválido na
+`gh-pages`.
 
     O sinal de que o token foi de fato usado é o `last_used_at` dele deixar de
     ser `null`, em `Settings → Access Tokens`.
