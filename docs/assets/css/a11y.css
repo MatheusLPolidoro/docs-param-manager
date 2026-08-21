@@ -5,6 +5,25 @@
  * WCAG 2.1 AA que o tema sozinho não garante, ou que a customização
  * deste site poderia ter quebrado. O critério está citado no comentário
  * para que uma mudança futura saiba o que está desfazendo.
+ *
+ * **Este arquivo é o registro.** Havia uma página de acessibilidade no site,
+ * declarando o que estava implementado e o que não fora verificado; ela foi
+ * removida a pedido, e a acessibilidade passou a viver só onde é construída —
+ * aqui, no HTML dos parciais e nos scripts. Quem mexer em qualquer um dos três
+ * não tem mais uma página para conferir depois: tem estes comentários.
+ *
+ * O que continua valendo, e não está neste arquivo:
+ *
+ * - a animação da marca não roda com `prefers-reduced-motion: reduce`, e a
+ *   verificação está em `assets/js/logo-animation.js` — nenhuma media query de
+ *   CSS alcança temporizador de JavaScript, então tirá-la de lá reprova o
+ *   critério 2.3.3 sem mudar uma linha daqui;
+ * - a digitação dos terminais segue a mesma regra e tem botão para parar, em
+ *   `assets/js/terminal.js`, que também põe uma transcrição no lugar do painel
+ *   animado para quem usa leitor de tela;
+ * - os controles da barra superior são `<button>` e `<a>` nativos com nome
+ *   acessível, e a lista de fontes marca a opção em vigor com `aria-current`
+ *   mais peso de traço e um sinal — nunca só com cor (1.4.1).
  */
 
 /* -------------------------------------------------------------------

@@ -9,10 +9,9 @@
      — os assets ficam só na raiz do site.
 
      Este é o cartaz: o quadro final da animação, parado. É o que aparece
-     antes de o desenho animado chegar, o que fica para quem pediu menos
-     movimento ao sistema, e o que volta quando a animação acaba — o
-     último quadro do arquivo gerado limpa o SVG, então sem o cartaz a
-     área terminaria vazia. -->
+     enquanto os 17 MB do desenho não chegam — sem ele a área ficaria
+     vazia e o texto saltaria de lugar na hora em que chegassem — e é o
+     que fica para sempre para quem pediu menos movimento ao sistema. -->
 ![Marca do Param Manager: o logotipo por extenso](assets/marca-animada.svg)
 </div>
 <svg id="LogoAnimation" class="pm-marca__tela" viewBox="219 280 1482 519" aria-hidden="true" hidden></svg>
@@ -24,6 +23,24 @@
 O Param Manager tira a configuração de dentro do `.env` de cada máquina e a
 coloca num único lugar, versionado e auditável — sem que a aplicação passe a
 depender de a rede estar de pé no instante da leitura.
+
+<div class="pm-selos" markdown>
+<!-- Selos servidos pelo img.shields.io. São a única coisa neste site que
+     depende de rede externa para *aparecer*: sem internet o navegador mostra o
+     texto alternativo de cada um, que diz a mesma coisa em palavras.
+
+     O selo de versões suportadas é estático, e não o `pypi/pyversions` que o
+     site do `param-manager` usa, por dois motivos. Lá ele aponta para o
+     `fastapi` — herança de um copiar e colar, então mostra as versões de outro
+     pacote. E apontá-lo para o `param-manager` sai pior ainda: o pacote
+     publicado não declara classificadores de versão, e o selo renderiza a
+     palavra "missing". O piso e o teto vêm do `requires-python` da lib
+     (`>=3.10,<=3.14`); mexeu ali, mexa aqui. -->
+[![PyPI - Version](https://img.shields.io/pypi/v/param-manager)](https://pypi.org/project/param-manager/)
+![Python](https://img.shields.io/badge/language-Python-blue?logo=python)
+![Cobertura de Testes](https://img.shields.io/badge/cobertura-90%25-brightgreen?logo=pytest)
+[![Supported Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-34D058?logo=python&logoColor=white)](https://pypi.org/project/param-manager/)
+</div>
 
 </div>
 </div>

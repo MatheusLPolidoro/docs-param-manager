@@ -1,0 +1,1 @@
+A barra superior passou a mostrar o repositório do projeto, com o número de estrelas e de forks, no formato padrão do mkdocs-material. Aponta para o `param-manager` no GitHub: este site documenta a API e o cliente, mas **só o cliente tem repositório público** — o do servidor foi removido do GitHub, e os dois vivem hoje num GitLab que ninguém de fora alcança.

@@ -18,13 +18,6 @@
 
   var STRINGS = {
     pt: {
-      animationRegion: 'Animação da marca',
-      animationLabel: 'Marca do Param Manager',
-      animationPlay: 'Reproduzir animação',
-      animationPause: 'Pausar animação',
-      animationReplay: 'Repetir animação',
-      animationLoading: 'Carregando animação…',
-      animationFailed: 'Não foi possível carregar a animação.',
       terminalRegion: 'Exemplo em terminal',
       terminalPlay: 'Reproduzir a digitação',
       terminalStop: 'Parar e mostrar tudo',
@@ -41,13 +34,6 @@
       fontSystem: 'Do sistema (sem fonte da web)',
     },
     en: {
-      animationRegion: 'Brand animation',
-      animationLabel: 'Param Manager wordmark',
-      animationPlay: 'Play animation',
-      animationPause: 'Pause animation',
-      animationReplay: 'Replay animation',
-      animationLoading: 'Loading animation…',
-      animationFailed: 'The animation could not be loaded.',
       terminalRegion: 'Terminal example',
       terminalPlay: 'Play the typing',
       terminalStop: 'Stop and show everything',
