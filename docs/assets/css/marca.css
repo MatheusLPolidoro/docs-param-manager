@@ -73,53 +73,15 @@
   display: none !important;
 }
 
-/* O controle de reprodução é o que permite a animação existir aqui: sem um
-   jeito visível de parar, conteúdo em movimento por mais de cinco segundos
-   reprova a WCAG 2.2.2. Ele fica sempre na página, não só no hover — um
-   controle que só aparece com o mouse em cima não existe para quem navega
-   por teclado. */
-.pm-marca__controle {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  margin-top: 0.25rem;
-  padding: 0.3rem 0.8rem;
-  font-family: inherit;
-  font-size: 0.68rem;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--pm-roxo);
-  background: transparent;
-  border: 1px solid var(--pm-borda);
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-.pm-marca__controle:hover {
-  background: var(--pm-fundo-suave);
-  border-color: var(--pm-roxo);
-}
-
-.pm-marca__controle[disabled] {
-  opacity: 0.6;
-  cursor: progress;
-}
-
-/* Falha de carga do arquivo de 17 MB não pode ser silenciosa: o bloco
-   guarda a mensagem em `data-pm-erro` e ela aparece abaixo do cartaz. */
-.pm-marca[data-pm-erro]::after {
-  content: attr(data-pm-erro);
-  display: block;
-  margin-top: 0.4rem;
-  font-size: 0.68rem;
-  color: var(--pm-roxo);
-}
-
-/* Na impressão sobra o cartaz — botão e animação não têm o que fazer no
-   papel. */
+/* Na impressão sobra o cartaz: o `<svg>` animado sai vazio no fim de cada
+   volta, e o papel não tem volta seguinte. */
 @media print {
-  .pm-marca__controle {
+  .pm-marca__tela {
     display: none !important;
+  }
+
+  .pm-marca__cartaz {
+    display: block !important;
   }
 }
 
@@ -197,4 +159,26 @@
   display: block;
   font-size: 0.85rem;
   line-height: 1.55;
+}
+
+/* ------------------------------------------------------------- selos */
+
+/* Linha de selos da página inicial. `align-items: center` porque os selos do
+   shields.io não têm todos a mesma altura, e `flex-wrap` porque quatro deles
+   não cabem lado a lado na largura de celular. */
+.md-typeset .pm-selos p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 1.5rem;
+}
+
+/* O tema dá `max-width: 100%` às imagens do conteúdo, o que aqui esticaria
+   nada — os selos são pequenos — mas a altura precisa acompanhar o zoom do
+   texto, e não ficar presa ao pixel do PNG. */
+.md-typeset .pm-selos img {
+  height: 1.05rem;
+  width: auto;
+  vertical-align: middle;
 }

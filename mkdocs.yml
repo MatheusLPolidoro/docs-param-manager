@@ -8,6 +8,17 @@ site_author: MatheusLPolidoro
 # quebra o download sem quebrar o build.
 use_directory_urls: true
 
+# Liga o link do repositório e o contador de estrelas na barra superior — o
+# Material busca os números na API do GitHub sozinho, e só faz isso quando a
+# URL é do github.com.
+#
+# Este site documenta a API e o cliente, mas **só o cliente tem repositório
+# público**: o `fast-param-manager-otel` no GitHub foi removido, e os dois
+# vivem hoje num GitLab local que ninguém de fora alcança. Apontar para o que
+# existe é melhor do que apontar para um 404.
+repo_url: https://github.com/MatheusLPolidoro/param-manager
+repo_name: MatheusLPolidoro/param-manager
+
 theme:
   name: material
   custom_dir: overrides
@@ -76,7 +87,6 @@ nav:
       - Empacotamento: cliente/empacotamento.md
   - Segurança:
       - Envelope criptográfico: seguranca/envelope.md
-  - Acessibilidade: acessibilidade.md
   - Alterações: changelog.md
 
 # Âncora quebrada é o defeito mais fácil de introduzir numa documentação
@@ -131,7 +141,6 @@ plugins:
             Empacotamento: Packaging
             Segurança: Security
             Envelope criptográfico: Cryptographic envelope
-            Acessibilidade: Accessibility
             Alterações: Changelog
   - towncrier
 

@@ -9,10 +9,9 @@
      exist — assets live only at the site root.
 
      This is the poster: the finished frame of the animation, still. It is
-     what shows before the animated drawing arrives, what stays for anyone
-     who asked the system for less motion, and what comes back when the
-     animation ends — the generated file's last frame clears the SVG, so
-     without the poster the area would end up blank. -->
+     what shows while the drawing's 17 MB have not arrived — without it the
+     area would sit empty and the text would jump when they did — and what
+     stays for good for anyone who asked the system for less motion. -->
 ![Param Manager wordmark](assets/marca-animada.svg)
 </div>
 <svg id="LogoAnimation" class="pm-marca__tela" viewBox="219 280 1482 519" aria-hidden="true" hidden></svg>
@@ -24,6 +23,24 @@
 Param Manager takes configuration out of the `.env` file on every machine and
 puts it in one versioned, auditable place — without making your application
 depend on the network being up at the moment it reads.
+
+<div class="pm-selos" markdown>
+<!-- Badges served by img.shields.io. They are the only thing on this site that
+     depends on the outside network to *appear*: with no internet the browser
+     shows each one's alternative text, which says the same thing in words.
+
+     The supported-versions badge is static rather than the `pypi/pyversions`
+     one the `param-manager` site uses, for two reasons. There it points at
+     `fastapi` — left over from a copy and paste, so it shows another package's
+     versions. And pointing it at `param-manager` is worse still: the published
+     package declares no version classifiers, so the badge renders the word
+     "missing". The floor and ceiling come from the library's `requires-python`
+     (`>=3.10,<=3.14`); change that, change this. -->
+[![PyPI - Version](https://img.shields.io/pypi/v/param-manager)](https://pypi.org/project/param-manager/)
+![Python](https://img.shields.io/badge/language-Python-blue?logo=python)
+![Test coverage](https://img.shields.io/badge/coverage-90%25-brightgreen?logo=pytest)
+[![Supported Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-34D058?logo=python&logoColor=white)](https://pypi.org/project/param-manager/)
+</div>
 
 </div>
 </div>

@@ -18,7 +18,7 @@ o que só faz sentido lendo produto inteiro, não um artefato de cada vez.
 | API | visão geral, instalação, configuração, autenticação, endpoints, tipos de parâmetro, observabilidade |
 | Cliente | visão geral, instalação, configuração, uso, cache e offline, empacotamento |
 | Segurança | envelope criptográfico |
-| Outros | início, acessibilidade, changelog |
+| Outros | início, changelog |
 
 O conteúdo foi escrito **conferindo o código**, não a documentação existente
 dos subprojetos — que diverge da implementação em vários pontos conhecidos. Onde
@@ -50,9 +50,11 @@ os dois discordam, as páginas daqui dizem qual é o comportamento real.
     runner de CI, que hoje não tem.
 
 **Acessibilidade**
-:   `assets/css/a11y.css`, com cada bloco citando o critério WCAG que atende. A
-    página `docs/acessibilidade.md` declara o que está implementado e, mais
-    importante, **o que ainda não foi verificado**.
+:   Não há página sobre o assunto — ela existiu e foi removida. O registro é o
+    código: `assets/css/a11y.css`, com cada bloco citando o critério WCAG que
+    atende, mais as verificações de `prefers-reduced-motion` em
+    `assets/js/logo-animation.js` e `assets/js/terminal.js`, que nenhuma media
+    query de CSS alcança.
 
 ## Ambiente
 
