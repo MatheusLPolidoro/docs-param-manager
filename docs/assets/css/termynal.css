@@ -48,7 +48,7 @@
   font-size: 0.72rem;
   font-weight: 600;
   line-height: 1.2;
-  color: var(--pm-roxo, #5e35b1);
+  color: var(--pm-cor, #5e35b1);
   background: transparent;
   border: 1px solid var(--pm-borda, rgba(94, 53, 177, 0.28));
   border-radius: 999px;
@@ -57,7 +57,7 @@
 
 .pm-terminal__botao:hover {
   background: var(--pm-fundo-suave, rgba(94, 53, 177, 0.06));
-  border-color: var(--pm-roxo, #5e35b1);
+  border-color: var(--pm-cor, #5e35b1);
 }
 
 /* Conteúdo lido por leitor de tela e invisível na tela. `display: none`

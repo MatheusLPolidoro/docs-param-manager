@@ -6,11 +6,11 @@
  * deste site poderia ter quebrado. O critério está citado no comentário
  * para que uma mudança futura saiba o que está desfazendo.
  *
- * **Este arquivo é o registro.** Havia uma página de acessibilidade no site,
- * declarando o que estava implementado e o que não fora verificado; ela foi
- * removida a pedido, e a acessibilidade passou a viver só onde é construída —
- * aqui, no HTML dos parciais e nos scripts. Quem mexer em qualquer um dos três
- * não tem mais uma página para conferir depois: tem estes comentários.
+ * **Este arquivo é o registro.** Não há página sobre acessibilidade no site,
+ * e é uma decisão: a acessibilidade vive onde é construída — aqui, no HTML dos
+ * parciais e nos scripts —, não numa página que a anuncia. Quem mexer em
+ * qualquer um dos três não tem uma página para conferir depois: tem estes
+ * comentários.
  *
  * O que continua valendo, e não está neste arquivo:
  *
@@ -36,7 +36,7 @@
  * ------------------------------------------------------------------- */
 
 :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
-  outline: 3px solid var(--pm-roxo, #5e35b1);
+  outline: 3px solid var(--pm-cor, #5e35b1);
   outline-offset: 2px;
   border-radius: 3px;
 }
@@ -55,7 +55,7 @@
 
 .md-skip:focus {
   z-index: 100;
-  outline: 3px solid var(--pm-roxo, #5e35b1);
+  outline: 3px solid var(--pm-cor, #5e35b1);
   outline-offset: 2px;
 }
 
@@ -100,7 +100,7 @@
 }
 
 .md-typeset__table:focus-visible {
-  outline: 3px solid var(--pm-roxo, #5e35b1);
+  outline: 3px solid var(--pm-cor, #5e35b1);
 }
 
 /* -------------------------------------------------------------------
