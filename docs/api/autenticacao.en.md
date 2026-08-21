@@ -110,14 +110,19 @@ The first two use `application/x-www-form-urlencoded`, not JSON.
 argument into a check. **Do not delete that test when touching authentication
 dependencies** — it is the only automated barrier that exists in this area.
 
-## Open risk
+## A secret that reaches the history
 
-!!! danger "Keycloak secrets are compromised"
+!!! danger "Deleting the file does not delete the commit"
 
-    One real `client_secret` sat in `README.md` and seven more in versioned
-    realm exports. All were removed from the working tree, but they **remain in
-    the published history** — deleting a file does not delete the commit.
+    A Keycloak `client_secret`, a database password or an encrypted envelope
+    that lands in a commit stays reachable by anyone holding the repository,
+    even after the file disappears from the working tree. `git log` keeps the
+    content, not the final state.
 
-    Only rotation in Keycloak ends the exposure. Rewriting history is not the
-    answer: the repository is already published, so `filter-repo` would
-    invalidate every clone and recover nothing.
+    **What ends the exposure is rotating the secret at its source** — in
+    Keycloak, in the database, wherever it is issued. Rewriting history does
+    not replace that: in an already distributed repository, `filter-repo`
+    invalidates every clone and recovers nothing that has already been read.
+
+    That is why the pipeline's secret scan runs over the **whole history**,
+    not over the commit diff: what is already in has to be found where it is.

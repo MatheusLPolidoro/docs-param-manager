@@ -109,15 +109,20 @@ de cada rota. É o que transforma "o schema publicado não mudou" de argumento e
 verificação. **Não apague esse teste ao mexer nas dependências de
 autenticação** — ele é a única barreira automatizada que existe nessa área.
 
-## Risco aberto
+## Segredo que alcança o histórico
 
-!!! danger "Segredos do Keycloak comprometidos"
+!!! danger "Apagar o arquivo não apaga o commit"
 
-    Um `client_secret` real esteve em `README.md` e outros sete em exports de
-    realm versionados. Todos foram removidos da árvore de trabalho, mas
-    **permanecem no histórico publicado** — apagar um arquivo não apaga o
-    commit.
+    Um `client_secret` do Keycloak, uma senha de banco ou um envelope cifrado
+    que entre num commit segue alcançável por quem tiver o repositório, mesmo
+    depois de o arquivo sumir da árvore de trabalho. O `git log` guarda o
+    conteúdo, não o estado final.
 
-    Só a rotação no Keycloak encerra a exposição. Reescrever o histórico não é
-    solução: o repositório já foi publicado, então `filter-repo` invalidaria
-    todos os clones e não recuperaria nada.
+    **O que encerra a exposição é rotacionar o segredo na origem** — no
+    Keycloak, no banco, onde quer que ele seja emitido. Reescrever o histórico
+    não substitui isso: num repositório já distribuído, `filter-repo` invalida
+    todos os clones e não recupera nada que já tenha sido lido.
+
+    É por isso que a varredura de segredo no pipeline roda sobre o **histórico
+    inteiro**, e não sobre o diff do commit: o que já entrou precisa ser
+    encontrado onde está.
