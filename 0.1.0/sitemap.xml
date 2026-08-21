@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>None./</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="None"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/"/>
+    </url>
+    <url>
+        <loc>Nonechangelog/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonechangelog/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/"/>
+    </url>
+    <url>
+        <loc>Noneapi/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/"/>
+    </url>
+    <url>
+        <loc>Noneapi/autenticacao/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/autenticacao/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/autenticacao/"/>
+    </url>
+    <url>
+        <loc>Noneapi/configuracao/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/configuracao/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/configuracao/"/>
+    </url>
+    <url>
+        <loc>Noneapi/endpoints/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/endpoints/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/endpoints/"/>
+    </url>
+    <url>
+        <loc>Noneapi/instalacao/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/instalacao/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/instalacao/"/>
+    </url>
+    <url>
+        <loc>Noneapi/observabilidade/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/observabilidade/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/observabilidade/"/>
+    </url>
+    <url>
+        <loc>Noneapi/tipos-de-parametro/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/tipos-de-parametro/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/tipos-de-parametro/"/>
+    </url>
+    <url>
+        <loc>Nonecliente/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/"/>
+    </url>
+    <url>
+        <loc>Nonecliente/cache-e-offline/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/cache-e-offline/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/cache-e-offline/"/>
+    </url>
+    <url>
+        <loc>Nonecliente/configuracao/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/configuracao/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/configuracao/"/>
+    </url>
+    <url>
+        <loc>Nonecliente/empacotamento/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/empacotamento/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/empacotamento/"/>
+    </url>
+    <url>
+        <loc>Nonecliente/instalacao/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/instalacao/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/instalacao/"/>
+    </url>
+    <url>
+        <loc>Nonecliente/uso/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/uso/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/uso/"/>
+    </url>
+    <url>
+        <loc>Noneproduto/arquitetura/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneproduto/arquitetura/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/produto/arquitetura/"/>
+    </url>
+    <url>
+        <loc>Noneproduto/compatibilidade/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneproduto/compatibilidade/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/produto/compatibilidade/"/>
+    </url>
+    <url>
+        <loc>Noneproduto/glossario/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneproduto/glossario/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/produto/glossario/"/>
+    </url>
+    <url>
+        <loc>Noneproduto/visao-geral/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneproduto/visao-geral/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/produto/visao-geral/"/>
+    </url>
+    <url>
+        <loc>Noneseguranca/envelope/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneseguranca/envelope/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/seguranca/envelope/"/>
+    </url>
+    <url>
+        <loc>Noneen/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="None"/>
+    </url>
+    <url>
+        <loc>Noneen/changelog/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/changelog/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonechangelog/"/>
+    </url>
+    <url>
+        <loc>Noneen/api/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/"/>
+    </url>
+    <url>
+        <loc>Noneen/api/autenticacao/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/autenticacao/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/autenticacao/"/>
+    </url>
+    <url>
+        <loc>Noneen/api/configuracao/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/configuracao/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/configuracao/"/>
+    </url>
+    <url>
+        <loc>Noneen/api/endpoints/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/endpoints/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/endpoints/"/>
+    </url>
+    <url>
+        <loc>Noneen/api/instalacao/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/instalacao/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/instalacao/"/>
+    </url>
+    <url>
+        <loc>Noneen/api/observabilidade/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/observabilidade/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/observabilidade/"/>
+    </url>
+    <url>
+        <loc>Noneen/api/tipos-de-parametro/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/api/tipos-de-parametro/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneapi/tipos-de-parametro/"/>
+    </url>
+    <url>
+        <loc>Noneen/cliente/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/"/>
+    </url>
+    <url>
+        <loc>Noneen/cliente/cache-e-offline/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/cache-e-offline/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/cache-e-offline/"/>
+    </url>
+    <url>
+        <loc>Noneen/cliente/configuracao/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/configuracao/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/configuracao/"/>
+    </url>
+    <url>
+        <loc>Noneen/cliente/empacotamento/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/empacotamento/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/empacotamento/"/>
+    </url>
+    <url>
+        <loc>Noneen/cliente/instalacao/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/instalacao/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/instalacao/"/>
+    </url>
+    <url>
+        <loc>Noneen/cliente/uso/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/cliente/uso/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Nonecliente/uso/"/>
+    </url>
+    <url>
+        <loc>Noneen/produto/arquitetura/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/produto/arquitetura/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneproduto/arquitetura/"/>
+    </url>
+    <url>
+        <loc>Noneen/produto/compatibilidade/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/produto/compatibilidade/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneproduto/compatibilidade/"/>
+    </url>
+    <url>
+        <loc>Noneen/produto/glossario/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/produto/glossario/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneproduto/glossario/"/>
+    </url>
+    <url>
+        <loc>Noneen/produto/visao-geral/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/produto/visao-geral/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneproduto/visao-geral/"/>
+    </url>
+    <url>
+        <loc>Noneen/seguranca/envelope/</loc>
+        <lastmod>2026-08-21</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="Noneen/seguranca/envelope/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="Noneseguranca/envelope/"/>
+    </url>
+</urlset>

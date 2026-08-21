@@ -1,0 +1,182 @@
+/*
+ * Marca do Param Manager.
+ *
+ * A paleta base vem do tema (deep purple / indigo no claro, teal no
+ * escuro). Aqui ficam só os elementos próprios: o herói da página
+ * inicial, a barra de ações e os cartões de navegação.
+ */
+
+:root {
+  --pm-cor: #5e35b1;
+  --pm-borda: rgba(94, 53, 177, 0.28);
+  --pm-fundo-suave: rgba(94, 53, 177, 0.06);
+}
+
+[data-md-color-scheme="slate"] {
+  --pm-cor: #b39ddb;
+  --pm-borda: rgba(179, 157, 219, 0.32);
+  --pm-fundo-suave: rgba(179, 157, 219, 0.08);
+}
+
+/* ------------------------------------------------------------ herói */
+
+.pm-heroi {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem 0 2rem;
+  border-bottom: 1px solid var(--pm-borda);
+  margin-bottom: 2rem;
+}
+
+/* A marca do herói é a assinatura animada, não a placa quadrada: o que a
+   animação desenha é o logotipo por extenso, em 16:9, e a 132 px de lado
+   ele sairia ilegível. A placa (assets/favicon.svg) continua sendo o
+   favicon e o logo da barra superior.
+
+   `flex-basis` em `rem` e `max-width` em vez de largura fixa: a marca
+   encolhe com a coluna em vez de forçar rolagem horizontal (WCAG 1.4.10).
+   O `aspect-ratio` reserva a altura desde o primeiro quadro de renderização,
+   então trocar o cartaz pela animação não empurra o texto para baixo. */
+.pm-marca {
+  position: relative;
+  flex: 1 1 20rem;
+  min-width: 0;
+  max-width: 30rem;
+}
+
+/* O `md_in_html` embrulha cada filho em `<p>` ao processar o bloco como
+   Markdown — inclusive o `<svg>` vazio da animação. Sem zerar a margem,
+   sobra um vão entre o cartaz e o botão, e ele muda de tamanho conforme a
+   animação está ou não escondida. */
+.pm-marca p {
+  margin: 0;
+}
+
+.pm-marca__cartaz img,
+.pm-marca__tela {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Mesma proporção do viewBox recortado (assets/marca-animada.svg): a
+     altura fica reservada desde o primeiro quadro, então trocar o cartaz
+     pela animação não empurra o texto para baixo. */
+  aspect-ratio: 1482 / 519;
+}
+
+/* O `display: block` acima vence o `display: none` que o navegador aplica
+   a `[hidden]`; sem isto o cartaz e a animação apareceriam juntos. */
+.pm-marca [hidden] {
+  display: none !important;
+}
+
+/* Na impressão sobra o cartaz: o `<svg>` animado sai vazio no fim de cada
+   volta, e o papel não tem volta seguinte. */
+@media print {
+  .pm-marca__tela {
+    display: none !important;
+  }
+
+  .pm-marca__cartaz {
+    display: block !important;
+  }
+}
+
+.pm-heroi__texto {
+  flex: 1 1 18rem;
+  min-width: 0;
+}
+
+.pm-heroi__texto h1,
+.pm-heroi__texto > :first-child {
+  margin-top: 0;
+}
+
+.pm-heroi__slogan {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  margin: 0.4rem 0 0;
+}
+
+/* --------------------------------------------------------- cartões */
+
+/* Seletor casado com `.md-typeset` de propósito: o Material estiliza
+   `ul` e `li` dentro do conteúdo com marcador e recuo próprios, e uma
+   regra de classe só perde para ele. Sem isto os cartões saem como uma
+   lista com bolinha, empilhados, sem grid. */
+.md-typeset ul.pm-cartoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.md-typeset ul.pm-cartoes > li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.md-typeset ul.pm-cartoes > li::marker {
+  content: none;
+}
+
+.md-typeset ul.pm-cartoes > li::before {
+  display: none;
+  content: none;
+}
+
+.pm-cartao {
+  display: block;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--pm-borda);
+  border-radius: 12px;
+  background: var(--pm-fundo-suave);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.pm-cartao:hover,
+.pm-cartao:focus-visible {
+  border-color: var(--pm-cor);
+  transform: translateY(-2px);
+}
+
+.pm-cartao__titulo {
+  display: block;
+  font-weight: 700;
+  color: var(--pm-cor);
+  margin-bottom: 0.35rem;
+}
+
+.pm-cartao__desc {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+/* ------------------------------------------------------------- selos */
+
+/* Linha de selos da página inicial. `align-items: center` porque os selos do
+   shields.io não têm todos a mesma altura, e `flex-wrap` porque quatro deles
+   não cabem lado a lado na largura de celular. */
+.md-typeset .pm-selos p {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 1.5rem;
+}
+
+/* O tema dá `max-width: 100%` às imagens do conteúdo, o que aqui esticaria
+   nada — os selos são pequenos — mas a altura precisa acompanhar o zoom do
+   texto, e não ficar presa ao pixel do PNG. */
+.md-typeset .pm-selos img {
+  height: 1.05rem;
+  width: auto;
+  vertical-align: middle;
+}
