@@ -4,7 +4,7 @@
 <div class="termynal" data-termynal data-ty-startDelay="500" data-ty-typeDelay="45" data-ty-lineDelay="800">
 <span data-ty="input">pip install param-manager</span>
 <span data-ty="progress"></span>
-<span data-ty>Successfully installed param-manager-0.4.3</span>
+<span data-ty>Successfully installed param-manager-0.6.0</span>
 </div>
 </div>
 
@@ -29,7 +29,7 @@
 ```python
 import param_manager
 
-print(param_manager.__version__)   # 0.4.3
+print(param_manager.__version__)   # 0.6.0
 ```
 
 ## Ambiente de desenvolvimento

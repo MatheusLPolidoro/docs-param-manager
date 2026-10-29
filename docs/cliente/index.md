@@ -1,7 +1,7 @@
 # Visão geral do cliente
 
 `param-manager` é a biblioteca Python que consome a API. Está publicada no PyPI
-na versão **0.4.3** e é instalada dentro da sua aplicação.
+na versão **0.6.0** e é instalada dentro da sua aplicação.
 
 ```python
 from param_manager import ParamManager

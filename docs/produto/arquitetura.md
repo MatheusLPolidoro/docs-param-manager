@@ -7,7 +7,7 @@ Quem fala com quem, no produto inteiro:
 ```mermaid
 flowchart LR
     accTitle: Contexto do produto Param Manager
-    accDescr: A aplicação do usuário usa a biblioteca param-manager, que fala HTTP com a API fast-param-manager e guarda uma cópia local em TinyDB. A API guarda os dados no MongoDB e delega identidade ao Keycloak, exportando telemetria para o coletor OpenTelemetry.
+    accDescr: A aplicação do usuário usa a biblioteca param-manager, que fala HTTP com a API fast-param-manager e guarda uma cópia local em TinyDB. O front desktop, extra da biblioteca, também passa por ela. A API guarda os dados no MongoDB e delega identidade ao Keycloak, exportando telemetria para o coletor OpenTelemetry.
 
     APP["Sua aplicação<br/>Python"] --> LIB["param-manager<br/>biblioteca cliente · PyPI"]
     LIB -->|HTTPS| API["fast-param-manager<br/>API"]
@@ -15,9 +15,7 @@ flowchart LR
     API --> MONGO[("MongoDB")]
     API -->|OIDC · JWKS| KC["Keycloak"]
     API -.OTLP.-> OTEL["otel-collector<br/>Tempo · Loki · Prometheus"]
-    FRONT["front-param-manager<br/>planejado, vazio"] -.-> API
-
-    style FRONT stroke-dasharray: 5 5
+    FRONT["Front desktop<br/>extra param-manager[front]"] --> LIB
 ```
 
 Os dois artefatos são liberados separadamente, e o que atravessa a seta entre
