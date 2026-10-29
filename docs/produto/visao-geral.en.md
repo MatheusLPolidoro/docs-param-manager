@@ -20,16 +20,16 @@ the moment it reads.**
 | Where it runs | A server, in a container | Inside your application |
 | Distribution | Image / your own deploy | PyPI — `pip install param-manager` |
 | Stores in | MongoDB | Local TinyDB, as a survival copy |
-| Version | `2.0.0` | `0.4.3` |
+| Version | `2.1.0` | `0.6.0` |
 
 They are **versioned and released independently**. There is no atomic deploy of
 both: there is always a window where an old client talks to a new server. That
 is the constraint that shapes the product the most, and it has its own page —
 [Compatibility](compatibilidade.md).
 
-There is also a planned third directory, `front-param-manager`, currently
-**empty**. Not a line of code exists, and nothing in this documentation depends
-on it.
+There is also a **desktop app**, which is not a third artifact: it ships inside
+`param-manager` itself, as an extra (`pip install "param-manager[front]"`,
+Python 3.11 to 3.13), and talks to the API only through the library.
 
 ## What the API does
 

@@ -88,7 +88,7 @@ The same two-stage switch pattern, applied to write authorization.
 :   The diff considers only the fields the client actually sent, and preserves
     already stored metadata. This is the behaviour you want.
 
-Promotion depends on adoption of client **0.4.3**, which started omitting
+Promotion depends on adoption of client **0.5.0** or later, which started omitting
 `user_editable` from the payload when the caller does not supply it. Version
 0.4.2 sends `user_editable=False` explicitly — under `explicit`, that becomes an
 attempt to change metadata and goes back to `403`.

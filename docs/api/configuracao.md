@@ -65,7 +65,7 @@ Default `legacy`. Decide como o diff de campos restritos é calculado no upsert.
 
 !!! warning "Não promova antes da hora"
 
-    `explicit` só é seguro depois que o `param-manager` **0.4.3** estiver
+    `explicit` só é seguro depois que o `param-manager` **0.5.0** ou superior estiver
     adotado. A versão 0.4.2 envia `user_editable=False` explicitamente, e sob
     `explicit` isso passa a contar como tentativa de alterar metadado.
 

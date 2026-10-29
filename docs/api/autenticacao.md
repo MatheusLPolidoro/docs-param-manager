@@ -87,7 +87,7 @@ O mesmo padrão de virada em duas etapas, aplicado à autorização de escrita.
 :   O diff considera só os campos que o cliente enviou de fato, e preserva os
     metadados já gravados. É o comportamento que se quer.
 
-A promoção depende da adoção do cliente **0.4.3**, que passou a omitir
+A promoção depende da adoção do cliente **0.5.0** ou superior, que passou a omitir
 `user_editable` do payload quando o chamador não informa. O 0.4.2 envia
 `user_editable=False` explicitamente — sob `explicit`, isso vira tentativa de
 alterar metadado e volta a dar `403`.

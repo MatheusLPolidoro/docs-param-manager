@@ -1,7 +1,7 @@
 # Client overview
 
 `param-manager` is the Python library that consumes the API. It is published on
-PyPI at version **0.4.3** and installed inside your application.
+PyPI at version **0.6.0** and installed inside your application.
 
 ```python
 from param_manager import ParamManager
