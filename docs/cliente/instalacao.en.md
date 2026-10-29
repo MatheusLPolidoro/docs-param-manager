@@ -10,7 +10,7 @@
 
 ## Requirements
 
-- **Python 3.10 through 3.14.** The floor is a security decision — see
+- **Python 3.10 or newer.** The floor is a security decision — see
   [Client overview](index.md#python-versions).
 - Network access to the API, at least for the first read of each parameter.
   Without one successful read there is nothing to fall back to: the local file

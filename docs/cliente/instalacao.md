@@ -10,7 +10,7 @@
 
 ## Requisitos
 
-- **Python 3.10 a 3.14.** O piso é por segurança — ver
+- **Python 3.10 ou superior.** O piso é por segurança — ver
   [Visão geral do cliente](index.md#versoes-de-python).
 - Acesso de rede à API, ao menos na primeira leitura de cada parâmetro. Sem uma
   leitura bem-sucedida não há o que cair de volta: o arquivo local começa vazio.

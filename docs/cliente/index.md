@@ -132,7 +132,9 @@ Escrita **sempre** vai à rede, sempre com token, e nunca consulta cache.
 
 ## Versões de Python
 
-`requires-python = ">=3.10,<=3.14"`.
+`requires-python = ">=3.10"`, sem teto. Uma biblioteca pura não tem como saber
+que vai quebrar numa versão que ainda não existe, e o teto antigo, `<=3.14`,
+recusava até o 3.14.1.
 
 O piso subiu de 3.8 para 3.10 **por segurança, não por sintaxe**:
 `python-dotenv==1.2.2` corrige a PYSEC-2026-2270 e não é publicado abaixo de
