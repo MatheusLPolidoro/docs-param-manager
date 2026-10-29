@@ -133,7 +133,9 @@ cache.
 
 ## Python versions
 
-`requires-python = ">=3.10,<=3.14"`.
+`requires-python = ">=3.10"`, with no ceiling. A pure library cannot know it
+will break on a version that does not exist yet, and the old ceiling, `<=3.14`,
+rejected even 3.14.1.
 
 The floor moved from 3.8 to 3.10 **for security, not syntax**:
 `python-dotenv==1.2.2` fixes PYSEC-2026-2270 and is not published below 3.10. On

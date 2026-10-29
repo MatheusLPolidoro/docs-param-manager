@@ -35,11 +35,11 @@ depender de a rede estar de pé no instante da leitura.
      pacote. E apontá-lo para o `param-manager` sai pior ainda: o pacote
      publicado não declara classificadores de versão, e o selo renderiza a
      palavra "missing". O piso e o teto vêm do `requires-python` da lib
-     (`>=3.10,<=3.14`); mexeu ali, mexa aqui. -->
+     (`>=3.10`, sem teto); mexeu ali, mexa aqui. -->
 [![PyPI - Version](https://img.shields.io/pypi/v/param-manager)](https://pypi.org/project/param-manager/)
 ![Python](https://img.shields.io/badge/language-Python-blue?logo=python)
 ![Cobertura de Testes](https://img.shields.io/badge/cobertura-90%25-brightgreen?logo=pytest)
-[![Supported Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-34D058?logo=python&logoColor=white)](https://pypi.org/project/param-manager/)
+[![Supported Python versions](https://img.shields.io/badge/python-3.10%2B-34D058?logo=python&logoColor=white)](https://pypi.org/project/param-manager/)
 </div>
 
 </div>

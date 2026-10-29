@@ -1523,7 +1523,9 @@ the <code>param-manager</code> site. <strong>Neither exists.</strong> To change 
 <code>upsert_params</code>.</p>
 </div>
 <h2 id="python-versions">Python versions<a class="headerlink" href="#python-versions" title="Link permanente para esta seção">&para;</a></h2>
-<p><code>requires-python = "&gt;=3.10,&lt;=3.14"</code>.</p>
+<p><code>requires-python = "&gt;=3.10"</code>, with no ceiling. A pure library cannot know it
+will break on a version that does not exist yet, and the old ceiling, <code>&lt;=3.14</code>,
+rejected even 3.14.1.</p>
 <p>The floor moved from 3.8 to 3.10 <strong>for security, not syntax</strong>:
 <code>python-dotenv==1.2.2</code> fixes PYSEC-2026-2270 and is not published below 3.10. On
 3.9 the reachable ceiling is still vulnerable; on 3.8, worse. Lowering the floor

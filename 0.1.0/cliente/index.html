@@ -1522,7 +1522,9 @@ do <code>param-manager</code>. <strong>Nenhum dos dois existe.</strong> Para alt
 <code>upsert_params</code>.</p>
 </div>
 <h2 id="versoes-de-python">Versões de Python<a class="headerlink" href="#versoes-de-python" title="Link permanente para esta seção">&para;</a></h2>
-<p><code>requires-python = "&gt;=3.10,&lt;=3.14"</code>.</p>
+<p><code>requires-python = "&gt;=3.10"</code>, sem teto. Uma biblioteca pura não tem como saber
+que vai quebrar numa versão que ainda não existe, e o teto antigo, <code>&lt;=3.14</code>,
+recusava até o 3.14.1.</p>
 <p>O piso subiu de 3.8 para 3.10 <strong>por segurança, não por sintaxe</strong>:
 <code>python-dotenv==1.2.2</code> corrige a PYSEC-2026-2270 e não é publicado abaixo de
 3.10. Em 3.9 o teto alcançável ainda é vulnerável; em 3.8, pior. Baixar o piso
