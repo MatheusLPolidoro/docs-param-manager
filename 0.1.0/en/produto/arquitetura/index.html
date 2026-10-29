@@ -1361,7 +1361,7 @@
 <p>Who talks to whom, across the whole product:</p>
 <pre class="mermaid"><code>flowchart LR
     accTitle: Param Manager product context
-    accDescr: The user application uses the param-manager library, which speaks HTTP to the fast-param-manager API and keeps a local copy in TinyDB. The API stores data in MongoDB and delegates identity to Keycloak, exporting telemetry to the OpenTelemetry collector.
+    accDescr: The user application uses the param-manager library, which speaks HTTP to the fast-param-manager API and keeps a local copy in TinyDB. The desktop front, an extra of the library, also goes through it. The API stores data in MongoDB and delegates identity to Keycloak, exporting telemetry to the OpenTelemetry collector.
 
     APP["Your application&lt;br/&gt;Python"] --&gt; LIB["param-manager&lt;br/&gt;client library · PyPI"]
     LIB --&gt;|HTTPS| API["fast-param-manager&lt;br/&gt;API"]
@@ -1369,9 +1369,7 @@
     API --&gt; MONGO[("MongoDB")]
     API --&gt;|OIDC · JWKS| KC["Keycloak"]
     API -.OTLP.-&gt; OTEL["otel-collector&lt;br/&gt;Tempo · Loki · Prometheus"]
-    FRONT["front-param-manager&lt;br/&gt;planned, empty"] -.-&gt; API
-
-    style FRONT stroke-dasharray: 5 5</code></pre>
+    FRONT["Desktop front&lt;br/&gt;param-manager[front] extra"] --&gt; LIB</code></pre>
 <p>The two artifacts are released separately, and whatever crosses the arrow
 between them is contract — see <a href="../compatibilidade/">Compatibility</a>.</p>
 <h2 id="the-server-layers">The server layers<a class="headerlink" href="#the-server-layers" title="Link permanente para esta seção">&para;</a></h2>

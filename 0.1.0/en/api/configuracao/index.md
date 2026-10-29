@@ -68,7 +68,7 @@ upsert.
 
 !!! warning "Do not promote early"
 
-    `explicit` is only safe once `param-manager` **0.4.3** has been adopted.
+    `explicit` is only safe once `param-manager` **0.5.0** or later has been adopted.
     Version 0.4.2 sends `user_editable=False` explicitly, and under `explicit`
     that starts counting as an attempt to change metadata.
 

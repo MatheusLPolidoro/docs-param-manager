@@ -1350,8 +1350,8 @@ da leitura.</strong></p>
 </tr>
 <tr>
 <td>Versão</td>
-<td><code>2.0.0</code></td>
-<td><code>0.4.3</code></td>
+<td><code>2.1.0</code></td>
+<td><code>0.6.0</code></td>
 </tr>
 </tbody>
 </table>
@@ -1359,8 +1359,9 @@ da leitura.</strong></p>
 atômico dos dois: sempre há uma janela em que um cliente antigo conversa com um
 servidor novo. Essa é a restrição que mais molda o desenho do produto, e ela tem
 página própria — <a href="../compatibilidade/">Compatibilidade</a>.</p>
-<p>Há ainda um terceiro diretório planejado, <code>front-param-manager</code>, hoje <strong>vazio</strong>.
-Nenhuma linha de código existe, e nada nesta documentação depende dele.</p>
+<p>Há também um <strong>aplicativo de desktop</strong>, que não é um terceiro artefato: ele vem
+dentro do próprio <code>param-manager</code>, como extra (<code>pip install "param-manager[front]"</code>,
+Python 3.11 a 3.13), e fala com a API só através da biblioteca.</p>
 <h2 id="o-que-a-api-faz">O que a API faz<a class="headerlink" href="#o-que-a-api-faz" title="Link permanente para esta seção">&para;</a></h2>
 <ul>
 <li><strong>Guarda parâmetros agrupados por aplicação.</strong> Uma aplicação é um documento no

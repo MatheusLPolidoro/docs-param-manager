@@ -1480,7 +1480,7 @@ were deliberate changes.</dd>
 <dd>The diff considers only the fields the client actually sent, and preserves
 already stored metadata. This is the behaviour you want.</dd>
 </dl>
-<p>Promotion depends on adoption of client <strong>0.4.3</strong>, which started omitting
+<p>Promotion depends on adoption of client <strong>0.5.0</strong> or later, which started omitting
 <code>user_editable</code> from the payload when the caller does not supply it. Version
 0.4.2 sends <code>user_editable=False</code> explicitly — under <code>explicit</code>, that becomes an
 attempt to change metadata and goes back to <code>403</code>.</p>

@@ -1350,8 +1350,8 @@ the moment it reads.</strong></p>
 </tr>
 <tr>
 <td>Version</td>
-<td><code>2.0.0</code></td>
-<td><code>0.4.3</code></td>
+<td><code>2.1.0</code></td>
+<td><code>0.6.0</code></td>
 </tr>
 </tbody>
 </table>
@@ -1359,9 +1359,9 @@ the moment it reads.</strong></p>
 both: there is always a window where an old client talks to a new server. That
 is the constraint that shapes the product the most, and it has its own page —
 <a href="../compatibilidade/">Compatibility</a>.</p>
-<p>There is also a planned third directory, <code>front-param-manager</code>, currently
-<strong>empty</strong>. Not a line of code exists, and nothing in this documentation depends
-on it.</p>
+<p>There is also a <strong>desktop app</strong>, which is not a third artifact: it ships inside
+<code>param-manager</code> itself, as an extra (<code>pip install "param-manager[front]"</code>,
+Python 3.11 to 3.13), and talks to the API only through the library.</p>
 <h2 id="what-the-api-does">What the API does<a class="headerlink" href="#what-the-api-does" title="Link permanente para esta seção">&para;</a></h2>
 <ul>
 <li><strong>Stores parameters grouped by application.</strong> An application is a document in

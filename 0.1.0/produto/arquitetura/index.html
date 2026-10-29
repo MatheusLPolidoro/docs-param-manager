@@ -1361,7 +1361,7 @@
 <p>Quem fala com quem, no produto inteiro:</p>
 <pre class="mermaid"><code>flowchart LR
     accTitle: Contexto do produto Param Manager
-    accDescr: A aplicação do usuário usa a biblioteca param-manager, que fala HTTP com a API fast-param-manager e guarda uma cópia local em TinyDB. A API guarda os dados no MongoDB e delega identidade ao Keycloak, exportando telemetria para o coletor OpenTelemetry.
+    accDescr: A aplicação do usuário usa a biblioteca param-manager, que fala HTTP com a API fast-param-manager e guarda uma cópia local em TinyDB. O front desktop, extra da biblioteca, também passa por ela. A API guarda os dados no MongoDB e delega identidade ao Keycloak, exportando telemetria para o coletor OpenTelemetry.
 
     APP["Sua aplicação&lt;br/&gt;Python"] --&gt; LIB["param-manager&lt;br/&gt;biblioteca cliente · PyPI"]
     LIB --&gt;|HTTPS| API["fast-param-manager&lt;br/&gt;API"]
@@ -1369,9 +1369,7 @@
     API --&gt; MONGO[("MongoDB")]
     API --&gt;|OIDC · JWKS| KC["Keycloak"]
     API -.OTLP.-&gt; OTEL["otel-collector&lt;br/&gt;Tempo · Loki · Prometheus"]
-    FRONT["front-param-manager&lt;br/&gt;planejado, vazio"] -.-&gt; API
-
-    style FRONT stroke-dasharray: 5 5</code></pre>
+    FRONT["Front desktop&lt;br/&gt;extra param-manager[front]"] --&gt; LIB</code></pre>
 <p>Os dois artefatos são liberados separadamente, e o que atravessa a seta entre
 eles é contrato — ver <a href="../compatibilidade/">Compatibilidade</a>.</p>
 <h2 id="as-camadas-do-servidor">As camadas do servidor<a class="headerlink" href="#as-camadas-do-servidor" title="Link permanente para esta seção">&para;</a></h2>

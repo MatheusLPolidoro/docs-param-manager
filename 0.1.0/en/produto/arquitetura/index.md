@@ -7,7 +7,7 @@ Who talks to whom, across the whole product:
 ```mermaid
 flowchart LR
     accTitle: Param Manager product context
-    accDescr: The user application uses the param-manager library, which speaks HTTP to the fast-param-manager API and keeps a local copy in TinyDB. The API stores data in MongoDB and delegates identity to Keycloak, exporting telemetry to the OpenTelemetry collector.
+    accDescr: The user application uses the param-manager library, which speaks HTTP to the fast-param-manager API and keeps a local copy in TinyDB. The desktop front, an extra of the library, also goes through it. The API stores data in MongoDB and delegates identity to Keycloak, exporting telemetry to the OpenTelemetry collector.
 
     APP["Your application<br/>Python"] --> LIB["param-manager<br/>client library · PyPI"]
     LIB -->|HTTPS| API["fast-param-manager<br/>API"]
@@ -15,9 +15,7 @@ flowchart LR
     API --> MONGO[("MongoDB")]
     API -->|OIDC · JWKS| KC["Keycloak"]
     API -.OTLP.-> OTEL["otel-collector<br/>Tempo · Loki · Prometheus"]
-    FRONT["front-param-manager<br/>planned, empty"] -.-> API
-
-    style FRONT stroke-dasharray: 5 5
+    FRONT["Desktop front<br/>param-manager[front] extra"] --> LIB
 ```
 
 The two artifacts are released separately, and whatever crosses the arrow
