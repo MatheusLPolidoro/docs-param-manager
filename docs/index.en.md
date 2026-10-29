@@ -35,11 +35,11 @@ depend on the network being up at the moment it reads.
      versions. And pointing it at `param-manager` is worse still: the published
      package declares no version classifiers, so the badge renders the word
      "missing". The floor and ceiling come from the library's `requires-python`
-     (`>=3.10,<=3.14`); change that, change this. -->
+     (`>=3.10`, no ceiling); change that, change this. -->
 [![PyPI - Version](https://img.shields.io/pypi/v/param-manager)](https://pypi.org/project/param-manager/)
 ![Python](https://img.shields.io/badge/language-Python-blue?logo=python)
 ![Test coverage](https://img.shields.io/badge/coverage-90%25-brightgreen?logo=pytest)
-[![Supported Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-34D058?logo=python&logoColor=white)](https://pypi.org/project/param-manager/)
+[![Supported Python versions](https://img.shields.io/badge/python-3.10%2B-34D058?logo=python&logoColor=white)](https://pypi.org/project/param-manager/)
 </div>
 
 </div>
